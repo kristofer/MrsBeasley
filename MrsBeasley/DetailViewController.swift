@@ -136,7 +136,6 @@ class DetailViewController: UIViewController, UITextViewDelegate, UITextFieldDel
         print("Saving...")
         self.view.endEditing(true)
         saveButton.isEnabled = false
-        saveButton.isHidden = true
         activityIndicator.startAnimating()
 
         container.privateCloudDatabase.fetch(withRecordID: recordItem!.recordID, completionHandler: { (record, error) in
