@@ -159,6 +159,7 @@ class MasterViewController: UITableViewController {
             container.privateCloudDatabase.delete(withRecordID: objDelete.recordID, completionHandler: { (recordID, error) in
                 print("deleted: \(String(describing: recordID?.recordName))")            })
             objects.remove(at: indexPath.row)
+            self.performDateGrouping()
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
