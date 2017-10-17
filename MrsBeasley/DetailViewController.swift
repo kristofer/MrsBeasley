@@ -9,32 +9,36 @@
 import UIKit
 import CloudKit
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     
-    var record = CKRecord(recordType: TDRecordTypeString)
-    var recordItem: CKRecord? {
+    var recordItem: CKRecord? { // active record in this detail.
         didSet {
             // Update the view.
-            configureView()
+            //configureView()
         }
     }
+    let dateFormater = DateFormatter()
+    let backupCreationFormat = "EEEE, dd MMMM yyyy (H:mm)"
+    var bodyChanged = false
     
-    @IBOutlet weak var detailDescriptionLabel: UILabel!
     // title location body
     @IBOutlet weak var bodyField: UITextView!
     @IBOutlet weak var titleField: UITextField!
-    @IBOutlet weak var dateField: UITextField!
-    @IBOutlet weak var locationField: UITextField!
+    //@IBOutlet weak var changedField: UITextField!
+    //@IBOutlet weak var dateField: UITextField!
+    //@IBOutlet weak var locationField: UITextField!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
 
 
     func configureView() {
+        self.bodyChanged = false
         // Update the user interface for the detail item.
         if let record = recordItem {
             if let title = titleField {
-                title.text = record[TDRecordKey.title] as! String?
+                //print("title field...\(self.dateFormater.string(from: record.creationDate!))")
+                title.text = self.dateFormater.string(from: record.creationDate!) //record[TDRecordKey.title] as! String?
             }
             if let body = bodyField {
                 body.text = record[TDRecordKey.body] as! String?
@@ -52,11 +56,11 @@ class DetailViewController: UIViewController {
             equalTo: view.trailingAnchor).isActive = true
         bodyField.bottomAnchor.constraint(
             equalTo: view.bottomAnchor,
-            constant: -20).isActive = true
+            constant: -9).isActive = true
         // 3
         bodyField.heightAnchor.constraint(
             equalTo: view.heightAnchor,
-            multiplier: 0.90).isActive = true
+            multiplier: 0.85).isActive = true
         
         // title
         titleField.translatesAutoresizingMaskIntoConstraints = false
@@ -75,89 +79,90 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        self.titleField.delegate = self
+        self.bodyField.delegate = self
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.center = self.view.center
+        activityIndicator.transform = CGAffineTransform(scaleX: 3, y: 3)
+        self.dateFormater.dateFormat = backupCreationFormat
+        self.saveButton.isEnabled = false
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         configureView()
         setupConstraints()
+        _ = bodyField.becomeFirstResponder()
     }
-
+    override func viewWillDisappear(_ animated: Bool) {
+        if self.bodyChanged {
+            self.save(self)
+            //self.bodyChanged = false
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    func textViewDidChange(_ textView: UITextView) {
+        //print("textViewDidChange")
+        self.bodyChanged = true
+        self.saveButton.isEnabled = true
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        print("didEndEditing")
+        //self.titleFieldAction(self)
+        if self.bodyChanged {
+            self.bodyFieldAction(self)
+        }
+    }
 
     // MARK: - Operations
-    @IBAction func titleFieldAction(_ sender: Any) {
-        guard let title = titleField.text else { return }
-        
-        record[.title] = title
-    }
     
     @IBAction func bodyFieldAction(_ sender: Any) {
         guard let body = bodyField.text else { return }
-        
-        record[.body] = body
+        recordItem![.title] = getFirstLine(body)
+        recordItem![.body] = body
     }
     
-    //    @IBAction func releaseDateFieldAction(_ sender: Any) {
-    //        guard let dateString = dateField.text else { return }
-    //
-    //        let formatter = DateFormatter()
-    //        formatter.dateFormat = "yyyy-MM-dd"
-    //
-    //        guard let date = formatter.date(from: dateString) else { return }
-    //
-    //        record[.releaseDate] = date
-    //    }
-    
-    @IBAction func locationFieldAction(_ sender: Any) {
-        guard let locationString = locationField.text else { return }
-        
-        CLGeocoder().geocodeAddressString(locationString) { placemarks, error in
-            guard let placemark = placemarks?.first, error == nil else { return }
-            
-            self.record[.location] = placemark.location
-            
-            DispatchQueue.main.async {
-                self.locationField.text = String(placemark)
-            }
+    func getFirstLine(_ text: String) -> String {
+        let till: Character = "\n"
+        if let idx = text.characters.index(of: till) {
+            return String(text[text.startIndex..<idx])
         }
+        return text
     }
     
     @IBAction func save(_ sender: Any) {
+        print("Saving...")
+        self.view.endEditing(true)
         saveButton.isEnabled = false
         saveButton.isHidden = true
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.center = self.view.center
-        self.activityIndicator.transform = CGAffineTransform(scaleX: 3, y: 3)
         activityIndicator.startAnimating()
 
-        container.privateCloudDatabase.save(record) { [unowned self] _, error in
-            DispatchQueue.main.async {
-                self.activityIndicator.stopAnimating()
-                self.saveButton.isEnabled = true
-                self.saveButton.isHidden = false
-                
-                if let error = error {
-                    let alert = UIAlertController(title: "CloudKit error", message: error.localizedDescription, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
-                } else {
-                    //self.clear()
-                    self.dismiss(animated: true, completion: nil)
+        container.privateCloudDatabase.fetch(withRecordID: recordItem!.recordID, completionHandler: { (record, error) in
+            if error != nil {
+                print("Error fetching record: \(error!.localizedDescription)")
+            } else {
+                if let record = record, let recordItem = self.recordItem {
+                    record.setObject(recordItem[TDRecordKey.title] as? CKRecordValue, forKey: TDRecordKey.title.rawValue)
+                    record.setObject(recordItem[TDRecordKey.body] as? CKRecordValue, forKey: TDRecordKey.body.rawValue)
                 }
+                self.container.privateCloudDatabase.save(record!, completionHandler: { (savedRecord, saveError) in
+                    self.activityIndicator.stopAnimating()
+                    if saveError != nil {
+                        print("Error saving record: \(String(describing: saveError?.localizedDescription))")
+                        if let error = saveError {
+                            let alert = UIAlertController(title: "CloudKit error", message: error.localizedDescription, preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                    } else {
+                        //print("Successfully updated record!")
+                    }
+                })
             }
-        }
+        })
     }
     
-    private func clear() {
-        titleField.text = nil
-        bodyField.text = nil
-        //dateField.text = nil
-        //locationField.text = nil
-        
-        record = CKRecord(recordType: TDRecordTypeString)
-        
-        _ = titleField.becomeFirstResponder()
-    }
-
 }
 
