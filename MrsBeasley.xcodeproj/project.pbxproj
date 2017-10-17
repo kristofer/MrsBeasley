@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C310D861F9509DB00DFDAA5 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C310D851F9509DB00DFDAA5 /* UserViewController.swift */; };
 		5C4775C21F94EC6E0001FB85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4775C11F94EC6E0001FB85 /* AppDelegate.swift */; };
 		5C4775C41F94EC6E0001FB85 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4775C31F94EC6E0001FB85 /* MasterViewController.swift */; };
 		5C4775C61F94EC6E0001FB85 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4775C51F94EC6E0001FB85 /* DetailViewController.swift */; };
@@ -15,6 +16,8 @@
 		5C4775CE1F94EC6E0001FB85 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C4775CC1F94EC6E0001FB85 /* LaunchScreen.storyboard */; };
 		5C4775D91F94EC6E0001FB85 /* MrsBeasleyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4775D81F94EC6E0001FB85 /* MrsBeasleyTests.swift */; };
 		5C4775E41F94EC6E0001FB85 /* MrsBeasleyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4775E31F94EC6E0001FB85 /* MrsBeasleyUITests.swift */; };
+		5C4775F41F94EF860001FB85 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C4775F31F94EF860001FB85 /* CloudKit.framework */; };
+		5C4775F61F94F02E0001FB85 /* TDRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4775F51F94F02E0001FB85 /* TDRecord.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5C310D851F9509DB00DFDAA5 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		5C4775BE1F94EC6E0001FB85 /* MrsBeasley.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MrsBeasley.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C4775C11F94EC6E0001FB85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5C4775C31F94EC6E0001FB85 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -49,6 +53,9 @@
 		5C4775DF1F94EC6E0001FB85 /* MrsBeasleyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MrsBeasleyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C4775E31F94EC6E0001FB85 /* MrsBeasleyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MrsBeasleyUITests.swift; sourceTree = "<group>"; };
 		5C4775E51F94EC6E0001FB85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5C4775F11F94EF840001FB85 /* MrsBeasley.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MrsBeasley.entitlements; sourceTree = "<group>"; };
+		5C4775F31F94EF860001FB85 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		5C4775F51F94F02E0001FB85 /* TDRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDRecord.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C4775F41F94EF860001FB85 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +91,7 @@
 				5C4775D71F94EC6E0001FB85 /* MrsBeasleyTests */,
 				5C4775E21F94EC6E0001FB85 /* MrsBeasleyUITests */,
 				5C4775BF1F94EC6E0001FB85 /* Products */,
+				5C4775F21F94EF860001FB85 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,6 +108,7 @@
 		5C4775C01F94EC6E0001FB85 /* MrsBeasley */ = {
 			isa = PBXGroup;
 			children = (
+				5C4775F11F94EF840001FB85 /* MrsBeasley.entitlements */,
 				5C4775C11F94EC6E0001FB85 /* AppDelegate.swift */,
 				5C4775C31F94EC6E0001FB85 /* MasterViewController.swift */,
 				5C4775C51F94EC6E0001FB85 /* DetailViewController.swift */,
@@ -106,6 +116,8 @@
 				5C4775CA1F94EC6E0001FB85 /* Assets.xcassets */,
 				5C4775CC1F94EC6E0001FB85 /* LaunchScreen.storyboard */,
 				5C4775CF1F94EC6E0001FB85 /* Info.plist */,
+				5C4775F51F94F02E0001FB85 /* TDRecord.swift */,
+				5C310D851F9509DB00DFDAA5 /* UserViewController.swift */,
 			);
 			path = MrsBeasley;
 			sourceTree = "<group>";
@@ -126,6 +138,14 @@
 				5C4775E51F94EC6E0001FB85 /* Info.plist */,
 			);
 			path = MrsBeasleyUITests;
+			sourceTree = "<group>";
+		};
+		5C4775F21F94EF860001FB85 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5C4775F31F94EF860001FB85 /* CloudKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -197,6 +217,14 @@
 					5C4775BD1F94EC6E0001FB85 = {
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 					5C4775D31F94EC6E0001FB85 = {
 						CreatedOnToolsVersion = 9.0;
@@ -262,6 +290,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C4775F61F94F02E0001FB85 /* TDRecord.swift in Sources */,
+				5C310D861F9509DB00DFDAA5 /* UserViewController.swift in Sources */,
 				5C4775C61F94EC6E0001FB85 /* DetailViewController.swift in Sources */,
 				5C4775C41F94EC6E0001FB85 /* MasterViewController.swift in Sources */,
 				5C4775C21F94EC6E0001FB85 /* AppDelegate.swift in Sources */,
@@ -430,9 +460,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MrsBeasley/MrsBeasley.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S7ZKK95T9U;
 				INFOPLIST_FILE = MrsBeasley/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tiogadigital.MrsBeasley;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -445,9 +477,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MrsBeasley/MrsBeasley.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S7ZKK95T9U;
 				INFOPLIST_FILE = MrsBeasley/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tiogadigital.MrsBeasley;
 				PRODUCT_NAME = "$(TARGET_NAME)";

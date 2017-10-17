@@ -7,6 +7,17 @@
 //
 
 import UIKit
+import CloudKit
+
+let MrsBeasleyContainer = "iCloud.com.tiogadigital.MrsBeasley"
+
+extension UIViewController {
+    
+    var container: CKContainer {
+        return CKContainer(identifier: MrsBeasleyContainer)
+    }
+    
+}
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
@@ -20,6 +31,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
         navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
         splitViewController.delegate = self
+
+        CKContainer.default().accountStatus { status, error in
+            if let error = error {
+                // some error occurred (probably a failed connection, try again)
+                print("need iCloud", error)
+            } else {
+                switch status {
+                case .available:
+                // the user is logged in
+                    self.configureCloudKit()
+                case .noAccount:
+                // the user is NOT logged in
+                    print("need iCloud")
+                case .couldNotDetermine:
+                // for some reason, the status could not be determined (try again)
+                    print("couldNotDetermine need iCloud...")
+                case .restricted:
+                    // iCloud settings are restricted by parental controls or a configuration profile
+                    print("restrictedneed iCloud...")
+                }
+            }
+        }
+
         return true
     }
 
@@ -50,12 +84,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {
         guard let secondaryAsNavController = secondaryViewController as? UINavigationController else { return false }
         guard let topAsDetailController = secondaryAsNavController.topViewController as? DetailViewController else { return false }
-        if topAsDetailController.detailItem == nil {
+        if topAsDetailController.recordItem == nil {
             // Return true to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
             return true
         }
         return false
     }
+
+    private func configureCloudKit() {
+        let container = CKContainer(identifier: MrsBeasleyContainer)
+        
+        container.privateCloudDatabase.fetchAllRecordZones { zones, error in
+            guard let zones = zones, error == nil else {
+                // error handling magic
+                return
+            }
+            
+            print("I have these zones: \(zones)")
+        }
+    }
+    
 
 }
 
