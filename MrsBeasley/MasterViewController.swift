@@ -253,18 +253,18 @@ class MasterViewController: UITableViewController {
                 let unitFlags : Set<Calendar.Component> = [.era, .day, .month, .year, .hour, .minute, .timeZone]
                 let difference = calendar.dateComponents(unitFlags, from: lastDate, to: currentDate)
                 let pdiff = calendar.dateComponents(unitFlags, from: currentDate, to: lastDate)
-                let cDate = sectionFormater.string(from: currentDate as Date)
-                let lDate = sectionFormater.string(from: lastDate as Date)
-                print("Date: \(cDate)/\(lDate), and \ndiff: \(difference) \npdiff \(pdiff)")
+                //let cDate = sectionFormater.string(from: currentDate as Date)
+                //let lDate = sectionFormater.string(from: lastDate as Date)
+                //print("Date: \(cDate)/\(lDate), and \ndiff: \(difference) \npdiff \(pdiff)")
                 
                 if difference.year! != 0 || difference.month! != 0 || difference.day! != 0
                  || difference.hour! < -12 {
-                    print("switch date")
+                    //print("switch date")
                     lastDate = currentDate
                     dateGroups.append(lastGroup)
                     lastGroup = SectionOfCKRecord(header: sectionFormater.string(from: lastDate as Date), items: [element])
                 } else {
-                    print("same date")
+                    //print("same date")
                     lastGroup.items.append(element)
                 }
             }
