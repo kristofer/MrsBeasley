@@ -31,6 +31,11 @@ extension SectionOfCKRecord: SectionModelType {
     }
 }
 
+class NoteShowCell: UITableViewCell {
+    @IBOutlet weak var textView: UITextView!
+}
+
+
 class MasterViewController: UITableViewController {
     
     var detailViewController: DetailViewController? = nil
@@ -39,7 +44,7 @@ class MasterViewController: UITableViewController {
     
     //var record = CKRecord(recordType: TDRecordTypeString)
     let dateFormater = DateFormatter()
-    let backupCreationFormat = "(H:mm)"
+    let backupCreationFormat = "H:mm"
     
     let sectionFormater = DateFormatter()
     let sectionHeaderFormat = "EEEE, dd MMMM yyyy"
@@ -70,6 +75,9 @@ class MasterViewController: UITableViewController {
                                      for: .valueChanged)
             self.refreshControl = refreshControl
         }
+        tableView.estimatedRowHeight = 70
+        tableView.rowHeight = UITableViewAutomaticDimension
+
     }
     @objc private func refreshOptions(sender: UIRefreshControl) {
         self.reloadFromiCloud()
@@ -152,17 +160,18 @@ class MasterViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        
+        let cell:NoteShowCell = tableView.dequeueReusableCell(withIdentifier: "NoteTextCell", for: indexPath) as! NoteShowCell
+
         //let object = objects[indexPath.row]
         let object = sectionSource[indexPath.section].items[indexPath.row]
         
-        cell.textLabel!.text = object[TDRecordKey.title] as! String?
-        if let creat = object.creationDate {
-            cell.detailTextLabel!.text = "* \(self.dateFormater.string(from: creat)) | \(self.dateFormater.string(from: object.modificationDate!))"
-        } else {
-            cell.detailTextLabel!.text = "pending..."
-        }
+        //cell.textView!.text = object[TDRecordKey.body] as! String?
+        cell.textLabel!.text = (object[TDRecordKey.body] as! String?)! + "\n| \(self.dateFormater.string(from: object.modificationDate!))"
+//        if let creat = object.creationDate {
+//            cell.detailTextLabel!.text = "\n--\(self.dateFormater.string(from: object.modificationDate!))"
+//        } else {
+//            cell.detailTextLabel!.text = "pending..."
+//        }
         return cell
     }
     
