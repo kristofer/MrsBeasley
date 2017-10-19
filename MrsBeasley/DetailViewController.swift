@@ -51,9 +51,9 @@ class DetailViewController: UIViewController, UITextViewDelegate, UITextFieldDel
         bodyField.translatesAutoresizingMaskIntoConstraints = false
         // 2
         bodyField.leadingAnchor.constraint(
-            equalTo: view.leadingAnchor).isActive = true
+            equalTo: view.leadingAnchor, constant: 16).isActive = true
         bodyField.trailingAnchor.constraint(
-            equalTo: view.trailingAnchor).isActive = true
+            equalTo: view.trailingAnchor, constant: 16).isActive = true
         bodyField.bottomAnchor.constraint(
             equalTo: view.bottomAnchor,
             constant: -9).isActive = true
