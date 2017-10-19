@@ -136,7 +136,7 @@ class DetailViewController: UIViewController, UITextViewDelegate, UITextFieldDel
         print("Saving...")
         self.view.endEditing(true)
         saveButton.isEnabled = false
-        activityIndicator.startAnimating()
+        //activityIndicator.startAnimating()
 
         container.privateCloudDatabase.fetch(withRecordID: recordItem!.recordID, completionHandler: { (record, error) in
             if error != nil {
@@ -147,7 +147,7 @@ class DetailViewController: UIViewController, UITextViewDelegate, UITextFieldDel
                     record.setObject(recordItem[TDRecordKey.body] as? CKRecordValue, forKey: TDRecordKey.body.rawValue)
                 }
                 self.container.privateCloudDatabase.save(record!, completionHandler: { (savedRecord, saveError) in
-                    self.activityIndicator.stopAnimating()
+                    //self.activityIndicator.stopAnimating()
                     if saveError != nil {
                         print("Error saving record: \(String(describing: saveError?.localizedDescription))")
                         if let error = saveError {

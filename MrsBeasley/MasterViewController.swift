@@ -253,17 +253,10 @@ class MasterViewController: UITableViewController {
                 let currentDate = element.creationDate!
                 let unitFlags : Set<Calendar.Component> = [.era, .day, .month, .year, .hour, .minute, .timeZone]
                 let difference = calendar.dateComponents(unitFlags, from: lastDate, to: currentDate)
-<<<<<<< HEAD
 //                let pdiff = calendar.dateComponents(unitFlags, from: currentDate, to: lastDate)
 //                let cDate = sectionFormater.string(from: currentDate as Date)
 //                let lDate = sectionFormater.string(from: lastDate as Date)
 //                print("Date: \(cDate)/\(lDate), and \ndiff: \(difference) \npdiff \(pdiff)")
-=======
-                let pdiff = calendar.dateComponents(unitFlags, from: currentDate, to: lastDate)
-                //let cDate = sectionFormater.string(from: currentDate as Date)
-                //let lDate = sectionFormater.string(from: lastDate as Date)
-                //print("Date: \(cDate)/\(lDate), and \ndiff: \(difference) \npdiff \(pdiff)")
->>>>>>> f23555d6330de6d59544d057def0a27a88621b0a
                 
                 if difference.year! != 0 || difference.month! != 0 || difference.day! != 0
                  || difference.hour! < -12 {
