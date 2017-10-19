@@ -107,7 +107,7 @@ class MasterViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
-                let object = objects[indexPath.row]
+                let object = sectionSource[indexPath.section].items[indexPath.row] //objects[indexPath.row]
                 let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
                 controller.recordItem = object
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
@@ -173,10 +173,11 @@ class MasterViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let objDelete = objects[indexPath.row]
+            let objDelete = sectionSource[indexPath.section].items[indexPath.row]
             container.privateCloudDatabase.delete(withRecordID: objDelete.recordID, completionHandler: { (recordID, error) in
                 print("deleted: \(String(describing: recordID?.recordName))")            })
-            objects.remove(at: indexPath.row)
+            let didx = objects.index(of: objDelete)
+            objects.remove(at: didx!)
             self.performDateGrouping()
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
@@ -252,19 +253,19 @@ class MasterViewController: UITableViewController {
                 let currentDate = element.creationDate!
                 let unitFlags : Set<Calendar.Component> = [.era, .day, .month, .year, .hour, .minute, .timeZone]
                 let difference = calendar.dateComponents(unitFlags, from: lastDate, to: currentDate)
-                let pdiff = calendar.dateComponents(unitFlags, from: currentDate, to: lastDate)
-                let cDate = sectionFormater.string(from: currentDate as Date)
-                let lDate = sectionFormater.string(from: lastDate as Date)
-                print("Date: \(cDate)/\(lDate), and \ndiff: \(difference) \npdiff \(pdiff)")
+//                let pdiff = calendar.dateComponents(unitFlags, from: currentDate, to: lastDate)
+//                let cDate = sectionFormater.string(from: currentDate as Date)
+//                let lDate = sectionFormater.string(from: lastDate as Date)
+//                print("Date: \(cDate)/\(lDate), and \ndiff: \(difference) \npdiff \(pdiff)")
                 
                 if difference.year! != 0 || difference.month! != 0 || difference.day! != 0
                  || difference.hour! < -12 {
-                    print("switch date")
+                    //print("switch date")
                     lastDate = currentDate
                     dateGroups.append(lastGroup)
                     lastGroup = SectionOfCKRecord(header: sectionFormater.string(from: lastDate as Date), items: [element])
                 } else {
-                    print("same date")
+                    //print("same date")
                     lastGroup.items.append(element)
                 }
             }
