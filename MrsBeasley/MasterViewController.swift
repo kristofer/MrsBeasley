@@ -32,28 +32,28 @@ extension SectionOfCKRecord: SectionModelType {
 }
 
 class MasterViewController: UITableViewController {
-
+    
     var detailViewController: DetailViewController? = nil
     var objects = [CKRecord]()
     var sectionSource = [SectionOfCKRecord]()
-
+    
     //var record = CKRecord(recordType: TDRecordTypeString)
     let dateFormater = DateFormatter()
     let backupCreationFormat = "(H:mm)"
-
+    
     let sectionFormater = DateFormatter()
     let sectionHeaderFormat = "EEEE, dd MMMM yyyy"
-
+    
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-
-
-
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         //navigationItem.leftBarButtonItem = editButtonItem
-
+        
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
         navigationItem.rightBarButtonItem = addButton
         if let split = splitViewController {
@@ -78,20 +78,20 @@ class MasterViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         self.reloadFromiCloud()
-
+        
         super.viewWillAppear(animated)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     @objc
     func insertNewObject(_ sender: Any) {
         let newOne = CKRecord(recordType: TDRecordTypeString)
         newOne[TDRecordKey.title] = "Untitled"
-
+        
         newOne[TDRecordKey.body] = ""
         objects.insert(newOne, at: 0)
         container.privateCloudDatabase.save(newOne) { [unowned self] _, error in
@@ -101,9 +101,9 @@ class MasterViewController: UITableViewController {
             }
         }
     }
-
+    
     // MARK: - Segues
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
@@ -115,16 +115,34 @@ class MasterViewController: UITableViewController {
             }
         }
     }
-
+    
     // MARK: - Table View
-
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        return 1
-//    }
+    
+    //    override func numberOfSections(in tableView: UITableView) -> Int {
+    //        return 1
+    //    }
     override func numberOfSections(in tableView: UITableView) -> Int  {
-        return sectionSource.count
+        if sectionSource.count > 0 {
+            self.tableView.backgroundView = nil
+            self.tableView.separatorStyle = .singleLine
+            return sectionSource.count
+        }
+        
+        let rect = CGRect(x: 0,
+                          y: 0,
+                          width: self.tableView.bounds.size.width,
+                          height: self.tableView.bounds.size.height)
+        let noDataLabel: UILabel = UILabel(frame: rect)
+        
+        noDataLabel.text = "No items found. Are you logged into iCloud?"
+        noDataLabel.textColor = UIColor.white
+        noDataLabel.textAlignment = NSTextAlignment.center
+        self.tableView.backgroundView = noDataLabel
+        self.tableView.separatorStyle = .none
+        
+        return 0
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //return objects.count
         return sectionSource[section].items.count
@@ -132,13 +150,13 @@ class MasterViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sectionSource[section].header
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-
+        
         //let object = objects[indexPath.row]
         let object = sectionSource[indexPath.section].items[indexPath.row]
-
+        
         cell.textLabel!.text = object[TDRecordKey.title] as! String?
         if let creat = object.creationDate {
             cell.detailTextLabel!.text = "* \(self.dateFormater.string(from: creat)) | \(self.dateFormater.string(from: object.modificationDate!))"
@@ -147,12 +165,12 @@ class MasterViewController: UITableViewController {
         }
         return cell
     }
-
+    
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let objDelete = objects[indexPath.row]
@@ -165,7 +183,7 @@ class MasterViewController: UITableViewController {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
     }
-
+    
     func reloadFromiCloud() {
         self.objects.removeAll()
         activityIndicator.hidesWhenStopped = true
@@ -188,7 +206,7 @@ class MasterViewController: UITableViewController {
         
         let predicate = NSPredicate(value: true)
         let query = CKQuery.init(recordType: TDRecordTypeString, predicate: predicate)
-        query.sortDescriptors = [NSSortDescriptor(key: "modificationDate", ascending: false)]
+        query.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         let queryOperation = CKQueryOperation (query: query)
         
         queryOperation.recordFetchedBlock = doneOneRecord
@@ -196,7 +214,13 @@ class MasterViewController: UITableViewController {
         queryOperation.queryCompletionBlock = {
             queryCursor, error in
             if error != nil {
-                print("queryCompletionBlock error: \(String(describing: error!))")
+                DispatchQueue.main.async {
+                    print("queryCompletionBlock error: \(String(describing: error!))")
+//                    let mesg = "Need to login into iCloud." + String(describing: error!)
+//                    let alert = UIAlertController(title: "iCloud Needed.", message: mesg, preferredStyle: .alert)
+//                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+//                    self.tableView.present(alert, animated: true, completion: nil)
+                }
             }
         }
         
@@ -212,36 +236,42 @@ class MasterViewController: UITableViewController {
         container
             .privateCloudDatabase.add(queryOperation)
         
-
+        
     }
-
+    
     func performDateGrouping() {
         sectionFormater.dateFormat = self.sectionHeaderFormat
-        
-        var lastDate = (objects[0].creationDate)! as Date
-        var lastGroup = SectionOfCKRecord(header: sectionFormater.string(from: lastDate as Date), items: [])
-        var dateGroups = [SectionOfCKRecord]()
-        let calendar = NSCalendar.current
-        
-        self.sectionSource.removeAll()
-        for element in objects {
-            let currentDate = element.creationDate!
-            let unitFlags : Set<Calendar.Component> = [.era, .day, .month, .year, .timeZone]
-            let difference = calendar.dateComponents(unitFlags, from: lastDate, to: currentDate)
-            //let cDate = sectionFormater.string(from: currentDate as Date)
-            //print("Item Date: \(cDate), and diff: \(difference)")
+        if objects.count > 0 {
+            var lastDate = (objects[0].creationDate)! as Date
+            var lastGroup = SectionOfCKRecord(header: sectionFormater.string(from: lastDate as Date), items: [])
+            var dateGroups = [SectionOfCKRecord]()
+            let calendar = NSCalendar.current
             
-            if difference.year! != 0 || difference.month! != 0 || difference.day! != 0 {
-                lastDate = currentDate
-                dateGroups.append(lastGroup)
-                lastGroup = SectionOfCKRecord(header: sectionFormater.string(from: lastDate as Date), items: [element])
-            } else {
-                lastGroup.items.append(element)
+            self.sectionSource.removeAll()
+            for element in objects {
+                let currentDate = element.creationDate!
+                let unitFlags : Set<Calendar.Component> = [.era, .day, .month, .year, .hour, .minute, .timeZone]
+                let difference = calendar.dateComponents(unitFlags, from: lastDate, to: currentDate)
+                let pdiff = calendar.dateComponents(unitFlags, from: currentDate, to: lastDate)
+                let cDate = sectionFormater.string(from: currentDate as Date)
+                let lDate = sectionFormater.string(from: lastDate as Date)
+                print("Date: \(cDate)/\(lDate), and \ndiff: \(difference) \npdiff \(pdiff)")
+                
+                if difference.year! != 0 || difference.month! != 0 || difference.day! != 0
+                 || difference.hour! < -12 {
+                    print("switch date")
+                    lastDate = currentDate
+                    dateGroups.append(lastGroup)
+                    lastGroup = SectionOfCKRecord(header: sectionFormater.string(from: lastDate as Date), items: [element])
+                } else {
+                    print("same date")
+                    lastGroup.items.append(element)
+                }
             }
+            dateGroups.append(lastGroup)
+            self.sectionSource = dateGroups
         }
-        dateGroups.append(lastGroup)
-        self.sectionSource = dateGroups
     }
-
+    
 }
 

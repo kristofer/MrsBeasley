@@ -35,7 +35,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         CKContainer.default().accountStatus { status, error in
             if let error = error {
                 // some error occurred (probably a failed connection, try again)
-                print("need iCloud", error)
+                print("need iCloud1", error)
+                let alert = UIAlertController(title: "iCloud Needed.", message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                splitViewController.present(alert, animated: true, completion: nil)
             } else {
                 switch status {
                 case .available:
@@ -43,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                     self.configureCloudKit()
                 case .noAccount:
                 // the user is NOT logged in
-                    print("need iCloud")
+                    print("need iCloud2")
                 case .couldNotDetermine:
                 // for some reason, the status could not be determined (try again)
                     print("couldNotDetermine need iCloud...")
