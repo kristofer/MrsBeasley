@@ -49,6 +49,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
             }
         }
+        
     }
 
     private func configureCloudKit() {
@@ -60,7 +61,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 return
             }
             
-            print("I have these zones: \(zones)")
+            //print("I have these zones: \(zones)")
         }
     }
 

@@ -103,7 +103,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                 return
             }
             
-            print("I have these zones: \(zones)")
+            //print("I have these zones: \(zones)")
         }
     }
     

@@ -42,7 +42,9 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTextViewDelegate,
     var objects = [CKRecord]()
     var sectionSource = [SectionOfCKRecord]()
     var selectedRecord: CKRecord?
-    
+    var selectedRow: Int?
+    var oldSelectedRow: Int?
+
     //var record = CKRecord(recordType: TDRecordTypeString)
     let dateFormater = DateFormatter()
     let backupCreationFormat = "H:mm"
@@ -62,17 +64,23 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTextViewDelegate,
         self.textView.textContainerInset = NSMakeSize(20, 20)
         self.textView.typingAttributes = attributes as! [NSAttributedStringKey : Any]
         self.textView.delegate = self
+        //self.textView.resignFirstResponder()
         //self.textView.textStorage?.delegate = self
         //self.textView.
         
         self.tableView.delegate = self
         self.tableView.gridStyleMask = NSTableView.GridLineStyle.solidHorizontalGridLineMask
 
-        self.doReload()
+        self.doReload(nil)
     }
-    func doReload() {
-        self.reloadFromiCloud()
-        self.tableView.reloadData()
+    func doReload(_ newRecord: CKRecord?) {
+        if newRecord == nil {
+            self.oldSelectedRow = self.selectedRow
+        } else {
+            self.oldSelectedRow = 1
+        }
+        self.clearSelection()
+        self.reloadFromiCloud(newRecord)
     }
     override var representedObject: Any? {
         didSet {
@@ -84,22 +92,18 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTextViewDelegate,
 
     func textDidChange(_ notification: Notification) {
         //print("textDidChange \(notification.name)")
-        if let tf:NSTextView = notification.object as! NSTextView {
-            //print("\n should save...")
+        if let _:NSTextView = notification.object as? NSTextView {
             self.view.window?.isDocumentEdited = true
         }
     }
-    func textDidBeginEditing(_ notification: Notification) {
-        print("textDidBeginEditing \(notification.name)")
-    }
+//    func textDidBeginEditing(_ notification: Notification) {
+//        print("textDidBeginEditing \(notification.name)")
+//    }
     
     func textDidEndEditing(_ notification: Notification) {
-        print("textDidEndEditing \(notification.name)")
-        if self.selectedRecord != nil {
-            let body = self.textView.string
-            self.selectedRecord![.title] = getFirstLine(body)
-            self.selectedRecord![.body] = body
-            self.saveSelectedRecord()
+        //print("textDidEndEditing \(notification.name)")
+        if let _:NSTextView = notification.object as? NSTextView {
+            self.view.window?.isDocumentEdited = true
         }
     }
     func getFirstLine(_ text: String) -> String {
@@ -110,23 +114,32 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTextViewDelegate,
         return text
     }
 
-    @IBAction func saveDocument(_ sender: Any?) {
-        // code to execute for save functionality
-        // following line prints in debug to show function is executing.
-        // delete print line below when testing is completed.
-        print("Saving...")
-        self.textView.textStorage?.endEditing()
-        if self.selectedRecord != nil {
-            let body = self.textView.string
-            self.selectedRecord![.title] = getFirstLine(body)
-            self.selectedRecord![.body] = body
-            self.saveSelectedRecord()
+    func ifEditedSave() {
+        if (self.view.window?.isDocumentEdited)! {
+            if self.selectedRecord != nil && self.selectedRow != nil {
+                let body = self.textView.string
+                self.selectedRecord![.title] = getFirstLine(body)
+                self.selectedRecord![.body] = body
+                self.saveSelectedRecord()
+                return
+            }
         }
-
-
+    }
+    
+    func clearSelection() {
+        self.selectedRecord = nil
+        self.selectedRow = nil
+        self.textView.string = ""
+        self.textView.isEditable = false
+    }
+    @IBAction func saveDocument(_ sender: Any?) {
+        //print("saveDocument \(String(describing: self.selectedRow))")
+        //self.textView.textStorage?.endEditing()
+        self.ifEditedSave()
     }
     
     func saveSelectedRecord() {
+
         container.privateCloudDatabase.fetch(withRecordID: selectedRecord!.recordID, completionHandler: { (record, error) in
             if error != nil {
                 print("Error fetching record: \(error!.localizedDescription)")
@@ -142,7 +155,7 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTextViewDelegate,
                     } else {
                         DispatchQueue.main.async {
                             self.view.window?.isDocumentEdited = false
-                            self.doReload()
+                            self.doReload(nil)
                         }
                         //print("Successfully updated record!")
                     }
@@ -155,15 +168,20 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTextViewDelegate,
         // code to execute for open functionality here
         // following line prints in debug to show function is executing.
         // delete print line below when testing is completed.
-        print("New!")
+        //print("New! \(self.objects.count)")
+        self.clearSelection()
         let newOne = CKRecord(recordType: TDRecordTypeString)
         newOne[TDRecordKey.title] = ""
         
         newOne[TDRecordKey.body] = ""
         objects.insert(newOne, at: 0)
         container.privateCloudDatabase.save(newOne) { [unowned self] _, error in
+            guard error == nil else {print("\(String(describing: error))"); return}
             DispatchQueue.main.async {
-                self.doReload()
+                self.doReload(newOne)
+                //print("New, reloading \(self.objects.count)")
+//                let indexSet = NSIndexSet(index: 1)
+//                self.tableView.selectRowIndexes(indexSet as IndexSet, byExtendingSelection: false)
             }
         }
     }
@@ -223,25 +241,31 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTextViewDelegate,
             if sectionRow == 0 {
                 return false
             }
-            
+            self.textView.isEditable = true
             return true
         }
         return false
     }
 
-    func tableViewSelectionWillChange(_ notification: Notification) {
-        print("tableViewSelectionWillChange \(notification.name)")
-    }
+//    func tableViewSelectionIsChanging(_ notification: Notification) {
+//        print("tableViewSelectionIsChanging")
+//        //self.ifEditedSave()
+//    }
+    
     func tableViewSelectionDidChange(_ notification: Notification) {
-        if let myTable = notification.object as? NSTableView {
-            // we create an [Int] array from the index set
-            let selected = myTable.selectedRowIndexes.map { Int($0) }
+        if let realTable = notification.object as? NSTableView {
+            // create an [Int] array from the index set
+            let selected = realTable.selectedRowIndexes.map({ Int($0) })
             if let dataSource = tableView.dataSource as? NSTableViewSectionDataSource {
-                let (section, sectionRow) = dataSource.tableView(tableView, sectionForRow: selected[0])
-                //print(selected, section, sectionRow-1)
-                self.selectedRecord = sectionSource[section].items[sectionRow-1]
-                self.textView.string = self.selectedRecord![TDRecordKey.body]  as! String
-                //self.textView.textStorage?.append(NSAttributedString(string: object[TDRecordKey.body]  as! String))
+                if selected.count > 0 {
+                    self.selectedRow = selected[0]
+                    let (section, sectionRow) = dataSource.tableView(tableView, sectionForRow: self.selectedRow!)
+                    //print(selected, section, sectionRow-1)
+                    self.selectedRecord = sectionSource[section].items[sectionRow-1]
+                    self.textView.string = self.selectedRecord![TDRecordKey.body]  as! String
+                } else {
+                    self.clearSelection()
+                }
             }
         }
     }
@@ -249,7 +273,7 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTextViewDelegate,
         if let dataSource = tableView.dataSource as? NSTableViewSectionDataSource {
             var (section, sectionRow) = dataSource.tableView(tableView, sectionForRow: row)
             
-            if let headerView = self.tableView(tableView, viewForHeaderInSection: section) {
+            if let _ = self.tableView(tableView, viewForHeaderInSection: section) {
                 if sectionRow == 0 {
                     return sectionSource[section].header as AnyObject
                 } else {
@@ -264,14 +288,11 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTextViewDelegate,
         return nil
     }
 
-    func reloadFromiCloud() {
-        self.selectedRecord = nil
-        self.textView.string = ""
+    func reloadFromiCloud(_ newRecord: CKRecord?) {
         self.objects.removeAll()
-        //activityIndicator.hidesWhenStopped = true
-        //activityIndicator.center = self.view.center
-        //self.activityIndicator.transform = CGAffineTransform(scaleX: 3, y: 3)
-        //activityIndicator.startAnimating()
+        if newRecord != nil {
+            self.objects.append(newRecord!) // stitch in newOne
+        }
         
         func doneOneRecord(_ record: CKRecord?) {
             if record != nil {
@@ -298,21 +319,21 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTextViewDelegate,
             if error != nil {
                 DispatchQueue.main.async {
                     print("queryCompletionBlock error: \(String(describing: error!))")
-                    //                    let mesg = "Need to login into iCloud." + String(describing: error!)
-                    //                    let alert = UIAlertController(title: "iCloud Needed.", message: mesg, preferredStyle: .alert)
-                    //                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                    //                    self.tableView.present(alert, animated: true, completion: nil)
                 }
             }
         }
         
         queryOperation.completionBlock = {
-            print("query Done. completionBlock: backups found:\(self.objects.count)")
+            //print("query Done. completionBlock: records found:\(self.objects.count)")
             
             DispatchQueue.main.async {
                 self.performDateGrouping()
                 self.tableView.reloadData()
-                // self.activityIndicator.stopAnimating()
+                if self.oldSelectedRow != nil && newRecord == nil {
+                    //print("attempting select of row \(self.oldSelectedRow!)")
+                    self.tableView.selectRowIndexes(NSIndexSet(index: self.oldSelectedRow!) as IndexSet, byExtendingSelection: false)
+                    self.textView.isEditable = true
+                }
             }
         }
         container
@@ -401,7 +422,7 @@ extension ViewController: NSTableViewSectionDataSource {
     func tableView(_ tableView: NSTableView, numberOfRowsInSection section: Int) -> Int {
         var count = 0
         
-        if let headerView = self.tableView(tableView, viewForHeaderInSection: section) {
+        if let _ = self.tableView(tableView, viewForHeaderInSection: section) {
             count += 1
         }
         
