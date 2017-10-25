@@ -34,19 +34,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="F6i-QW-tym">
-                                <rect key="frame" x="177" y="349" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="F6i-QW-tym">
+                                <rect key="frame" x="177" y="349.5" width="20" height="20"/>
                             </activityIndicatorView>
-                            <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rAS-DX-yXZ">
-                                <rect key="frame" x="16" y="64" width="343" height="30"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rAS-DX-yXZ">
+                                <rect key="frame" x="16" y="69" width="343" height="30"/>
                                 <color key="backgroundColor" red="0.99982959029999996" green="0.99116859629999998" blue="0.64064935700000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mR3-5x-s7y">
-                                <rect key="frame" x="16" y="102" width="343" height="515"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mR3-5x-s7y">
+                                <rect key="frame" x="16" y="107" width="343" height="515"/>
                                 <color key="backgroundColor" red="0.98269428405958492" green="1" blue="0.68466030862744631" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -57,7 +56,13 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="mR3-5x-s7y" firstAttribute="top" secondItem="rAS-DX-yXZ" secondAttribute="bottom" constant="8" id="1NH-WU-UXc"/>
+                            <constraint firstItem="rAS-DX-yXZ" firstAttribute="leading" secondItem="mR3-5x-s7y" secondAttribute="leading" id="9EB-Zd-atp"/>
+                            <constraint firstItem="mR3-5x-s7y" firstAttribute="centerY" secondItem="F6i-QW-tym" secondAttribute="centerY" constant="5" id="I9u-iU-C3R"/>
+                            <constraint firstItem="VUw-jc-0yf" firstAttribute="bottom" secondItem="mR3-5x-s7y" secondAttribute="bottom" constant="45" id="RGl-yt-DOi"/>
+                            <constraint firstItem="rAS-DX-yXZ" firstAttribute="centerX" secondItem="F6i-QW-tym" secondAttribute="centerX" id="Zwd-Yh-exv"/>
                             <constraint firstItem="mR3-5x-s7y" firstAttribute="leading" secondItem="VUw-jc-0yf" secondAttribute="leading" constant="16" id="bC0-t4-KeZ"/>
+                            <constraint firstItem="rAS-DX-yXZ" firstAttribute="top" secondItem="VUw-jc-0yf" secondAttribute="top" constant="5" id="hdy-Gf-Uqm"/>
+                            <constraint firstItem="rAS-DX-yXZ" firstAttribute="trailing" secondItem="mR3-5x-s7y" secondAttribute="trailing" id="miB-cz-Rb2"/>
                             <constraint firstItem="VUw-jc-0yf" firstAttribute="trailing" secondItem="mR3-5x-s7y" secondAttribute="trailing" constant="16" id="trG-ut-gS5"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="VUw-jc-0yf"/>

@@ -13,8 +13,6 @@ class DetailViewController: UIViewController, UITextViewDelegate, UITextFieldDel
     
     var recordItem: CKRecord? { // active record in this detail.
         didSet {
-            // Update the view.
-            //configureView()
         }
     }
     let dateFormater = DateFormatter()
@@ -24,9 +22,6 @@ class DetailViewController: UIViewController, UITextViewDelegate, UITextFieldDel
     // title location body
     @IBOutlet weak var bodyField: UITextView!
     @IBOutlet weak var titleField: UITextField!
-    //@IBOutlet weak var changedField: UITextField!
-    //@IBOutlet weak var dateField: UITextField!
-    //@IBOutlet weak var locationField: UITextField!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
@@ -37,61 +32,34 @@ class DetailViewController: UIViewController, UITextViewDelegate, UITextFieldDel
         // Update the user interface for the detail item.
         if let record = recordItem {
             if let title = titleField {
-                //print("title field...\(self.dateFormater.string(from: record.creationDate!))")
-                title.text = self.dateFormater.string(from: record.creationDate!) //record[TDRecordKey.title] as! String?
+                title.text = self.dateFormater.string(from: record.creationDate!)
             }
-            if let body = bodyField {
+            if let body = self.bodyField {
                 body.text = record[TDRecordKey.body] as! String?
             }
         }
     }
 
-    func setupConstraints() {
-        // 1
-        bodyField.translatesAutoresizingMaskIntoConstraints = false
-        // 2
-        bodyField.leadingAnchor.constraint(
-            equalTo: view.leadingAnchor, constant: 16).isActive = true
-        bodyField.trailingAnchor.constraint(
-            equalTo: view.trailingAnchor, constant: 16).isActive = true
-        bodyField.bottomAnchor.constraint(
-            equalTo: view.bottomAnchor,
-            constant: -9).isActive = true
-        // 3
-        bodyField.heightAnchor.constraint(
-            equalTo: view.heightAnchor,
-            multiplier: 0.85).isActive = true
-        
-        // title
-        titleField.translatesAutoresizingMaskIntoConstraints = false
-        titleField.centerXAnchor.constraint(
-            equalTo: view.centerXAnchor).isActive = true
-        titleField.bottomAnchor.constraint(
-            equalTo: bodyField.topAnchor).isActive = true
-        //
-        titleField.setContentHuggingPriority(
-            UILayoutPriority.required,
-            for: .vertical)
-        titleField.setContentCompressionResistancePriority(
-            UILayoutPriority.required,
-            for: .vertical)
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
         self.titleField.delegate = self
         self.bodyField.delegate = self
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.center = self.view.center
-        activityIndicator.transform = CGAffineTransform(scaleX: 3, y: 3)
+        self.activityIndicator.hidesWhenStopped = true
+        self.activityIndicator.center = self.view.center
+        self.activityIndicator.transform = CGAffineTransform(scaleX: 3, y: 3)
         self.dateFormater.dateFormat = backupCreationFormat
         self.saveButton.isEnabled = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        configureView()
-        setupConstraints()
-        _ = bodyField.becomeFirstResponder()
+        self.configureView()
+        if reachability.connection != .none {
+            self.bodyField.isEditable = true
+            //_ = bodyField.becomeFirstResponder()
+        } else {
+            self.bodyField.isEditable = false
+        }
     }
     override func viewWillDisappear(_ animated: Bool) {
         if self.bodyChanged {
@@ -109,7 +77,7 @@ class DetailViewController: UIViewController, UITextViewDelegate, UITextFieldDel
         self.saveButton.isEnabled = true
     }
     func textViewDidEndEditing(_ textView: UITextView) {
-        print("didEndEditing")
+        //print("didEndEditing")
         //self.titleFieldAction(self)
         if self.bodyChanged {
             self.bodyFieldAction(self)
@@ -133,9 +101,8 @@ class DetailViewController: UIViewController, UITextViewDelegate, UITextFieldDel
     }
     
     @IBAction func save(_ sender: Any) {
-        print("Saving...")
         self.view.endEditing(true)
-        saveButton.isEnabled = false
+        self.saveButton.isEnabled = false
         //activityIndicator.startAnimating()
 
         container.privateCloudDatabase.fetch(withRecordID: recordItem!.recordID, completionHandler: { (record, error) in

@@ -19,6 +19,9 @@ extension UIViewController {
     
 }
 
+let reachability = Reachability()!
+
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
 

@@ -10,6 +10,7 @@ import UIKit
 import CloudKit
 import CoreLocation
 
+// data structures for the sectioned by date that I display.
 public protocol SectionModelType {
     associatedtype Item
     
@@ -79,14 +80,15 @@ class MasterViewController: UITableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
 
     }
+    
     @objc private func refreshOptions(sender: UIRefreshControl) {
         self.reloadFromiCloud()
         sender.endRefreshing()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         self.reloadFromiCloud()
-        
         super.viewWillAppear(animated)
     }
     
@@ -97,17 +99,23 @@ class MasterViewController: UITableViewController {
     
     @objc
     func insertNewObject(_ sender: Any) {
-        let newOne = CKRecord(recordType: TDRecordTypeString)
-        newOne[TDRecordKey.title] = "Untitled"
-        
-        newOne[TDRecordKey.body] = ""
-        objects.insert(newOne, at: 0)
-        container.privateCloudDatabase.save(newOne) { [unowned self] _, error in
-            DispatchQueue.main.async {
-                self.performDateGrouping()
-                self.tableView.reloadData()
+        if reachability.connection != .none {
+            let newOne = CKRecord(recordType: TDRecordTypeString)
+            newOne[TDRecordKey.title] = ""
+            
+            newOne[TDRecordKey.body] = ""
+            objects.insert(newOne, at: 0)
+            container.privateCloudDatabase.save(newOne) { [unowned self] _, error in
+                DispatchQueue.main.async {
+                    self.performDateGrouping()
+                    self.tableView.reloadData()
+                    self.tableView.selectRow(at: IndexPath(row:0, section: 0), animated: true, scrollPosition: .top)
+                    self.performSegue(withIdentifier: "showDetail", sender: nil)
+                }
             }
+            return
         }
+        self.networkOffline()
     }
     
     // MARK: - Segues
@@ -126,9 +134,6 @@ class MasterViewController: UITableViewController {
     
     // MARK: - Table View
     
-    //    override func numberOfSections(in tableView: UITableView) -> Int {
-    //        return 1
-    //    }
     override func numberOfSections(in tableView: UITableView) -> Int  {
         if sectionSource.count > 0 {
             self.tableView.backgroundView = nil
@@ -152,7 +157,6 @@ class MasterViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //return objects.count
         return sectionSource[section].items.count
     }
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -162,22 +166,17 @@ class MasterViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:NoteShowCell = tableView.dequeueReusableCell(withIdentifier: "NoteTextCell", for: indexPath) as! NoteShowCell
 
-        //let object = objects[indexPath.row]
         let object = sectionSource[indexPath.section].items[indexPath.row]
-        
-        //cell.textView!.text = object[TDRecordKey.body] as! String?
         cell.textLabel!.text = (object[TDRecordKey.body] as! String?)! + "\n| \(self.dateFormater.string(from: object.modificationDate!))"
-//        if let creat = object.creationDate {
-//            cell.detailTextLabel!.text = "\n--\(self.dateFormater.string(from: object.modificationDate!))"
-//        } else {
-//            cell.detailTextLabel!.text = "pending..."
-//        }
+
         return cell
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+        if reachability.connection != .none {
+            return true
+        }
+        return false
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -195,57 +194,58 @@ class MasterViewController: UITableViewController {
     }
     
     func reloadFromiCloud() {
-        self.objects.removeAll()
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.center = self.view.center
-        self.activityIndicator.transform = CGAffineTransform(scaleX: 3, y: 3)
-        activityIndicator.startAnimating()
         
-        func doneOneRecord(_ record: CKRecord?) {
-            if record != nil {
-                self.objects.append(record!)
-            }
-        }
-        
-        func doneHere(_ record: CKRecord?, error: Error?) {
-            if error != nil {
-                print("restoreRealm: There was an error: \(String(describing: error))")
-                return
-            }
-        }
-        
-        let predicate = NSPredicate(value: true)
-        let query = CKQuery.init(recordType: TDRecordTypeString, predicate: predicate)
-        query.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        let queryOperation = CKQueryOperation (query: query)
-        
-        queryOperation.recordFetchedBlock = doneOneRecord
-        
-        queryOperation.queryCompletionBlock = {
-            queryCursor, error in
-            if error != nil {
-                DispatchQueue.main.async {
-                    print("queryCompletionBlock error: \(String(describing: error!))")
-//                    let mesg = "Need to login into iCloud." + String(describing: error!)
-//                    let alert = UIAlertController(title: "iCloud Needed.", message: mesg, preferredStyle: .alert)
-//                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-//                    self.tableView.present(alert, animated: true, completion: nil)
+        if reachability.connection != .none {
+            self.objects.removeAll()
+            activityIndicator.hidesWhenStopped = true
+            activityIndicator.center = self.view.center
+            self.activityIndicator.transform = CGAffineTransform(scaleX: 3, y: 3)
+            activityIndicator.startAnimating()
+            
+            func doneOneRecord(_ record: CKRecord?) {
+                if record != nil {
+                    self.objects.append(record!)
                 }
             }
-        }
-        
-        queryOperation.completionBlock = {
-            print("query Done. completionBlock: backups found:\(self.objects.count)")
             
-            DispatchQueue.main.async {
-                self.performDateGrouping()
-                self.tableView.reloadData()
-                self.activityIndicator.stopAnimating()
+            func doneHere(_ record: CKRecord?, error: Error?) {
+                if error != nil {
+                    print("restoreRealm: There was an error: \(String(describing: error))")
+                    return
+                }
             }
+            
+            let predicate = NSPredicate(value: true)
+            let query = CKQuery.init(recordType: TDRecordTypeString, predicate: predicate)
+            query.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+            let queryOperation = CKQueryOperation (query: query)
+            
+            queryOperation.recordFetchedBlock = doneOneRecord
+            
+            queryOperation.queryCompletionBlock = {
+                queryCursor, error in
+                if error != nil {
+                    DispatchQueue.main.async {
+                        print("queryCompletionBlock error: \(String(describing: error!))")
+                        let mesg = "Need to login into iCloud." + String(describing: error!)
+                        let alert = UIAlertController(title: "iCloud Needed.", message: mesg, preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                }
+            }
+            
+            queryOperation.completionBlock = {
+                //print("query Done. completionBlock: records found:\(self.objects.count)")
+                DispatchQueue.main.async {
+                    self.performDateGrouping()
+                    self.tableView.reloadData()
+                    self.activityIndicator.stopAnimating()
+                }
+            }
+            container
+                .privateCloudDatabase.add(queryOperation)
         }
-        container
-            .privateCloudDatabase.add(queryOperation)
-        
         
     }
     
@@ -262,6 +262,7 @@ class MasterViewController: UITableViewController {
                 let currentDate = element.creationDate!
                 let unitFlags : Set<Calendar.Component> = [.era, .day, .month, .year, .hour, .minute, .timeZone]
                 let difference = calendar.dateComponents(unitFlags, from: lastDate, to: currentDate)
+                // still don't have this quite precisely right.
 //                let pdiff = calendar.dateComponents(unitFlags, from: currentDate, to: lastDate)
 //                let cDate = sectionFormater.string(from: currentDate as Date)
 //                let lDate = sectionFormater.string(from: lastDate as Date)
@@ -283,5 +284,12 @@ class MasterViewController: UITableViewController {
         }
     }
     
+    func networkOffline() {
+        if reachability.connection == .none {
+            let alert = UIAlertController(title: "iCloud Needed.", message: "network is offline. unable to perform this operation.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
 }
 

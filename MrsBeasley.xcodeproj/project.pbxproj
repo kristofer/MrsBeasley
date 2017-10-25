@@ -26,6 +26,8 @@
 		5C4940BC1F9FA88C00C3A007 /* MrsBeasley_macUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4940BB1F9FA88C00C3A007 /* MrsBeasley_macUITests.swift */; };
 		5C4940C81F9FAC7B00C3A007 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C4940C71F9FAC7B00C3A007 /* CloudKit.framework */; };
 		5C4940C91F9FB66000C3A007 /* TDRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4775F51F94F02E0001FB85 /* TDRecord.swift */; };
+		5C7EE2661FA1222100F02B9A /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7EE2651FA1222100F02B9A /* Reachability.swift */; };
+		5C7EE2681FA1224000F02B9A /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7EE2651FA1222100F02B9A /* Reachability.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +95,7 @@
 		5C4940BB1F9FA88C00C3A007 /* MrsBeasley_macUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MrsBeasley_macUITests.swift; sourceTree = "<group>"; };
 		5C4940BD1F9FA88C00C3A007 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C4940C71F9FAC7B00C3A007 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
+		5C7EE2651FA1222100F02B9A /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +149,8 @@
 		5C4775B51F94EC6E0001FB85 = {
 			isa = PBXGroup;
 			children = (
+				5C310D871F96B0F100DFDAA5 /* mrfrench.png */,
+				5C7EE2641FA1220D00F02B9A /* Common */,
 				5C4775C01F94EC6E0001FB85 /* MrsBeasley */,
 				5C4775D71F94EC6E0001FB85 /* MrsBeasleyTests */,
 				5C4775E21F94EC6E0001FB85 /* MrsBeasleyUITests */,
@@ -173,7 +178,6 @@
 		5C4775C01F94EC6E0001FB85 /* MrsBeasley */ = {
 			isa = PBXGroup;
 			children = (
-				5C310D871F96B0F100DFDAA5 /* mrfrench.png */,
 				5C4775F11F94EF840001FB85 /* MrsBeasley.entitlements */,
 				5C4775C11F94EC6E0001FB85 /* AppDelegate.swift */,
 				5C4775C31F94EC6E0001FB85 /* MasterViewController.swift */,
@@ -244,6 +248,14 @@
 				5C4940BD1F9FA88C00C3A007 /* Info.plist */,
 			);
 			path = "MrsBeasley-macUITests";
+			sourceTree = "<group>";
+		};
+		5C7EE2641FA1220D00F02B9A /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				5C7EE2651FA1222100F02B9A /* Reachability.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -511,6 +523,7 @@
 			files = (
 				5C4775F61F94F02E0001FB85 /* TDRecord.swift in Sources */,
 				5C310D861F9509DB00DFDAA5 /* UserViewController.swift in Sources */,
+				5C7EE2661FA1222100F02B9A /* Reachability.swift in Sources */,
 				5C4775C61F94EC6E0001FB85 /* DetailViewController.swift in Sources */,
 				5C4775C41F94EC6E0001FB85 /* MasterViewController.swift in Sources */,
 				5C4775C21F94EC6E0001FB85 /* AppDelegate.swift in Sources */,
@@ -539,6 +552,7 @@
 			files = (
 				5C4940A01F9FA88C00C3A007 /* ViewController.swift in Sources */,
 				5C49409E1F9FA88C00C3A007 /* AppDelegate.swift in Sources */,
+				5C7EE2681FA1224000F02B9A /* Reachability.swift in Sources */,
 				5C4940C91F9FB66000C3A007 /* TDRecord.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
