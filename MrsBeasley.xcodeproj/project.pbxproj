@@ -18,6 +18,14 @@
 		5C4775E41F94EC6E0001FB85 /* MrsBeasleyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4775E31F94EC6E0001FB85 /* MrsBeasleyUITests.swift */; };
 		5C4775F41F94EF860001FB85 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C4775F31F94EF860001FB85 /* CloudKit.framework */; };
 		5C4775F61F94F02E0001FB85 /* TDRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4775F51F94F02E0001FB85 /* TDRecord.swift */; };
+		5C49409E1F9FA88C00C3A007 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C49409D1F9FA88C00C3A007 /* AppDelegate.swift */; };
+		5C4940A01F9FA88C00C3A007 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C49409F1F9FA88C00C3A007 /* ViewController.swift */; };
+		5C4940A21F9FA88C00C3A007 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C4940A11F9FA88C00C3A007 /* Assets.xcassets */; };
+		5C4940A51F9FA88C00C3A007 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C4940A31F9FA88C00C3A007 /* Main.storyboard */; };
+		5C4940B11F9FA88C00C3A007 /* MrsBeasley_macTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4940B01F9FA88C00C3A007 /* MrsBeasley_macTests.swift */; };
+		5C4940BC1F9FA88C00C3A007 /* MrsBeasley_macUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4940BB1F9FA88C00C3A007 /* MrsBeasley_macUITests.swift */; };
+		5C4940C81F9FAC7B00C3A007 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C4940C71F9FAC7B00C3A007 /* CloudKit.framework */; };
+		5C4940C91F9FB66000C3A007 /* TDRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4775F51F94F02E0001FB85 /* TDRecord.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +42,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 5C4775BD1F94EC6E0001FB85;
 			remoteInfo = MrsBeasley;
+		};
+		5C4940AD1F9FA88C00C3A007 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C4775B61F94EC6E0001FB85 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5C49409A1F9FA88C00C3A007;
+			remoteInfo = "MrsBeasley-mac";
+		};
+		5C4940B81F9FA88C00C3A007 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C4775B61F94EC6E0001FB85 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5C49409A1F9FA88C00C3A007;
+			remoteInfo = "MrsBeasley-mac";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -57,6 +79,20 @@
 		5C4775F11F94EF840001FB85 /* MrsBeasley.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MrsBeasley.entitlements; sourceTree = "<group>"; };
 		5C4775F31F94EF860001FB85 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		5C4775F51F94F02E0001FB85 /* TDRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDRecord.swift; sourceTree = "<group>"; };
+		5C49409B1F9FA88C00C3A007 /* MrsBeasley-mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MrsBeasley-mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C49409D1F9FA88C00C3A007 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5C49409F1F9FA88C00C3A007 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5C4940A11F9FA88C00C3A007 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5C4940A41F9FA88C00C3A007 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		5C4940A61F9FA88C00C3A007 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5C4940A71F9FA88C00C3A007 /* MrsBeasley_mac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MrsBeasley_mac.entitlements; sourceTree = "<group>"; };
+		5C4940AC1F9FA88C00C3A007 /* MrsBeasley-macTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MrsBeasley-macTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C4940B01F9FA88C00C3A007 /* MrsBeasley_macTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MrsBeasley_macTests.swift; sourceTree = "<group>"; };
+		5C4940B21F9FA88C00C3A007 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5C4940B71F9FA88C00C3A007 /* MrsBeasley-macUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MrsBeasley-macUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C4940BB1F9FA88C00C3A007 /* MrsBeasley_macUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MrsBeasley_macUITests.swift; sourceTree = "<group>"; };
+		5C4940BD1F9FA88C00C3A007 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5C4940C71F9FAC7B00C3A007 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +118,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5C4940981F9FA88C00C3A007 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5C4940C81F9FAC7B00C3A007 /* CloudKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5C4940A91F9FA88C00C3A007 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5C4940B41F9FA88C00C3A007 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -91,6 +149,9 @@
 				5C4775C01F94EC6E0001FB85 /* MrsBeasley */,
 				5C4775D71F94EC6E0001FB85 /* MrsBeasleyTests */,
 				5C4775E21F94EC6E0001FB85 /* MrsBeasleyUITests */,
+				5C49409C1F9FA88C00C3A007 /* MrsBeasley-mac */,
+				5C4940AF1F9FA88C00C3A007 /* MrsBeasley-macTests */,
+				5C4940BA1F9FA88C00C3A007 /* MrsBeasley-macUITests */,
 				5C4775BF1F94EC6E0001FB85 /* Products */,
 				5C4775F21F94EF860001FB85 /* Frameworks */,
 			);
@@ -102,6 +163,9 @@
 				5C4775BE1F94EC6E0001FB85 /* MrsBeasley.app */,
 				5C4775D41F94EC6E0001FB85 /* MrsBeasleyTests.xctest */,
 				5C4775DF1F94EC6E0001FB85 /* MrsBeasleyUITests.xctest */,
+				5C49409B1F9FA88C00C3A007 /* MrsBeasley-mac.app */,
+				5C4940AC1F9FA88C00C3A007 /* MrsBeasley-macTests.xctest */,
+				5C4940B71F9FA88C00C3A007 /* MrsBeasley-macUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -145,9 +209,41 @@
 		5C4775F21F94EF860001FB85 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5C4940C71F9FAC7B00C3A007 /* CloudKit.framework */,
 				5C4775F31F94EF860001FB85 /* CloudKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5C49409C1F9FA88C00C3A007 /* MrsBeasley-mac */ = {
+			isa = PBXGroup;
+			children = (
+				5C49409D1F9FA88C00C3A007 /* AppDelegate.swift */,
+				5C49409F1F9FA88C00C3A007 /* ViewController.swift */,
+				5C4940A11F9FA88C00C3A007 /* Assets.xcassets */,
+				5C4940A31F9FA88C00C3A007 /* Main.storyboard */,
+				5C4940A61F9FA88C00C3A007 /* Info.plist */,
+				5C4940A71F9FA88C00C3A007 /* MrsBeasley_mac.entitlements */,
+			);
+			path = "MrsBeasley-mac";
+			sourceTree = "<group>";
+		};
+		5C4940AF1F9FA88C00C3A007 /* MrsBeasley-macTests */ = {
+			isa = PBXGroup;
+			children = (
+				5C4940B01F9FA88C00C3A007 /* MrsBeasley_macTests.swift */,
+				5C4940B21F9FA88C00C3A007 /* Info.plist */,
+			);
+			path = "MrsBeasley-macTests";
+			sourceTree = "<group>";
+		};
+		5C4940BA1F9FA88C00C3A007 /* MrsBeasley-macUITests */ = {
+			isa = PBXGroup;
+			children = (
+				5C4940BB1F9FA88C00C3A007 /* MrsBeasley_macUITests.swift */,
+				5C4940BD1F9FA88C00C3A007 /* Info.plist */,
+			);
+			path = "MrsBeasley-macUITests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -206,6 +302,59 @@
 			productReference = 5C4775DF1F94EC6E0001FB85 /* MrsBeasleyUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		5C49409A1F9FA88C00C3A007 /* MrsBeasley-mac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5C4940C41F9FA88C00C3A007 /* Build configuration list for PBXNativeTarget "MrsBeasley-mac" */;
+			buildPhases = (
+				5C4940971F9FA88C00C3A007 /* Sources */,
+				5C4940981F9FA88C00C3A007 /* Frameworks */,
+				5C4940991F9FA88C00C3A007 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MrsBeasley-mac";
+			productName = "MrsBeasley-mac";
+			productReference = 5C49409B1F9FA88C00C3A007 /* MrsBeasley-mac.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5C4940AB1F9FA88C00C3A007 /* MrsBeasley-macTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5C4940C51F9FA88C00C3A007 /* Build configuration list for PBXNativeTarget "MrsBeasley-macTests" */;
+			buildPhases = (
+				5C4940A81F9FA88C00C3A007 /* Sources */,
+				5C4940A91F9FA88C00C3A007 /* Frameworks */,
+				5C4940AA1F9FA88C00C3A007 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5C4940AE1F9FA88C00C3A007 /* PBXTargetDependency */,
+			);
+			name = "MrsBeasley-macTests";
+			productName = "MrsBeasley-macTests";
+			productReference = 5C4940AC1F9FA88C00C3A007 /* MrsBeasley-macTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		5C4940B61F9FA88C00C3A007 /* MrsBeasley-macUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5C4940C61F9FA88C00C3A007 /* Build configuration list for PBXNativeTarget "MrsBeasley-macUITests" */;
+			buildPhases = (
+				5C4940B31F9FA88C00C3A007 /* Sources */,
+				5C4940B41F9FA88C00C3A007 /* Frameworks */,
+				5C4940B51F9FA88C00C3A007 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5C4940B91F9FA88C00C3A007 /* PBXTargetDependency */,
+			);
+			name = "MrsBeasley-macUITests";
+			productName = "MrsBeasley-macUITests";
+			productReference = 5C4940B71F9FA88C00C3A007 /* MrsBeasley-macUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -238,6 +387,31 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = 5C4775BD1F94EC6E0001FB85;
 					};
+					5C49409A1F9FA88C00C3A007 = {
+						CreatedOnToolsVersion = 9.0.1;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.Mac = {
+								enabled = 0;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
+					};
+					5C4940AB1F9FA88C00C3A007 = {
+						CreatedOnToolsVersion = 9.0.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 5C49409A1F9FA88C00C3A007;
+					};
+					5C4940B61F9FA88C00C3A007 = {
+						CreatedOnToolsVersion = 9.0.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 5C49409A1F9FA88C00C3A007;
+					};
 				};
 			};
 			buildConfigurationList = 5C4775B91F94EC6E0001FB85 /* Build configuration list for PBXProject "MrsBeasley" */;
@@ -256,6 +430,9 @@
 				5C4775BD1F94EC6E0001FB85 /* MrsBeasley */,
 				5C4775D31F94EC6E0001FB85 /* MrsBeasleyTests */,
 				5C4775DE1F94EC6E0001FB85 /* MrsBeasleyUITests */,
+				5C49409A1F9FA88C00C3A007 /* MrsBeasley-mac */,
+				5C4940AB1F9FA88C00C3A007 /* MrsBeasley-macTests */,
+				5C4940B61F9FA88C00C3A007 /* MrsBeasley-macUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -279,6 +456,29 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		5C4775DD1F94EC6E0001FB85 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5C4940991F9FA88C00C3A007 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5C4940A21F9FA88C00C3A007 /* Assets.xcassets in Resources */,
+				5C4940A51F9FA88C00C3A007 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5C4940AA1F9FA88C00C3A007 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5C4940B51F9FA88C00C3A007 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -316,6 +516,32 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5C4940971F9FA88C00C3A007 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5C4940A01F9FA88C00C3A007 /* ViewController.swift in Sources */,
+				5C49409E1F9FA88C00C3A007 /* AppDelegate.swift in Sources */,
+				5C4940C91F9FB66000C3A007 /* TDRecord.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5C4940A81F9FA88C00C3A007 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5C4940B11F9FA88C00C3A007 /* MrsBeasley_macTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5C4940B31F9FA88C00C3A007 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5C4940BC1F9FA88C00C3A007 /* MrsBeasley_macUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -328,6 +554,16 @@
 			isa = PBXTargetDependency;
 			target = 5C4775BD1F94EC6E0001FB85 /* MrsBeasley */;
 			targetProxy = 5C4775E01F94EC6E0001FB85 /* PBXContainerItemProxy */;
+		};
+		5C4940AE1F9FA88C00C3A007 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5C49409A1F9FA88C00C3A007 /* MrsBeasley-mac */;
+			targetProxy = 5C4940AD1F9FA88C00C3A007 /* PBXContainerItemProxy */;
+		};
+		5C4940B91F9FA88C00C3A007 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5C49409A1F9FA88C00C3A007 /* MrsBeasley-mac */;
+			targetProxy = 5C4940B81F9FA88C00C3A007 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -346,6 +582,14 @@
 				5C4775CD1F94EC6E0001FB85 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		5C4940A31F9FA88C00C3A007 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5C4940A41F9FA88C00C3A007 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -558,6 +802,122 @@
 			};
 			name = Release;
 		};
+		5C4940BE1F9FA88C00C3A007 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "MrsBeasley-mac/MrsBeasley_mac.entitlements";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = S7ZKK95T9U;
+				INFOPLIST_FILE = "MrsBeasley-mac/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tiogadigital.MrsBeasley-mac";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		5C4940BF1F9FA88C00C3A007 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "MrsBeasley-mac/MrsBeasley_mac.entitlements";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = S7ZKK95T9U;
+				INFOPLIST_FILE = "MrsBeasley-mac/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tiogadigital.MrsBeasley-mac";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		5C4940C01F9FA88C00C3A007 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = S7ZKK95T9U;
+				INFOPLIST_FILE = "MrsBeasley-macTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tiogadigital.MrsBeasley-macTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MrsBeasley-mac.app/Contents/MacOS/MrsBeasley-mac";
+			};
+			name = Debug;
+		};
+		5C4940C11F9FA88C00C3A007 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = S7ZKK95T9U;
+				INFOPLIST_FILE = "MrsBeasley-macTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tiogadigital.MrsBeasley-macTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MrsBeasley-mac.app/Contents/MacOS/MrsBeasley-mac";
+			};
+			name = Release;
+		};
+		5C4940C21F9FA88C00C3A007 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = S7ZKK95T9U;
+				INFOPLIST_FILE = "MrsBeasley-macUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tiogadigital.MrsBeasley-macUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 4.0;
+				TEST_TARGET_NAME = "MrsBeasley-mac";
+			};
+			name = Debug;
+		};
+		5C4940C31F9FA88C00C3A007 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = S7ZKK95T9U;
+				INFOPLIST_FILE = "MrsBeasley-macUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tiogadigital.MrsBeasley-macUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 4.0;
+				TEST_TARGET_NAME = "MrsBeasley-mac";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -593,6 +953,33 @@
 			buildConfigurations = (
 				5C4775EF1F94EC6E0001FB85 /* Debug */,
 				5C4775F01F94EC6E0001FB85 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5C4940C41F9FA88C00C3A007 /* Build configuration list for PBXNativeTarget "MrsBeasley-mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5C4940BE1F9FA88C00C3A007 /* Debug */,
+				5C4940BF1F9FA88C00C3A007 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5C4940C51F9FA88C00C3A007 /* Build configuration list for PBXNativeTarget "MrsBeasley-macTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5C4940C01F9FA88C00C3A007 /* Debug */,
+				5C4940C11F9FA88C00C3A007 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5C4940C61F9FA88C00C3A007 /* Build configuration list for PBXNativeTarget "MrsBeasley-macUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5C4940C21F9FA88C00C3A007 /* Debug */,
+				5C4940C31F9FA88C00C3A007 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
