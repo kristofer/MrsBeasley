@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MrsBeasley-mac/ViewController.swift"
-            timestampString = "530640032.058418"
+            timestampString = "530806963.152464"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "259"
-            endingLineNumber = "259"
+            startingLineNumber = "266"
+            endingLineNumber = "266"
             landmarkName = "tableViewSelectionDidChange(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MrsBeasley-mac/ViewController.swift"
-            timestampString = "530640032.058526"
+            timestampString = "530806963.153016"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "269"
-            endingLineNumber = "269"
+            startingLineNumber = "276"
+            endingLineNumber = "276"
             landmarkName = "tableViewSelectionDidChange(_:)"
             landmarkType = "7">
          </BreakpointContent>
