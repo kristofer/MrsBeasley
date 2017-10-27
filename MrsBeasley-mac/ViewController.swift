@@ -129,6 +129,7 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTextViewDelegate,
     func clearSelection() {
         self.selectedRecord = nil
         self.selectedRow = nil
+        self.oldSelectedRow = nil
         self.textView.string = ""
         self.textView.isEditable = false
     }
@@ -162,6 +163,12 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTextViewDelegate,
                 })
             }
         })
+    }
+    
+    @IBAction func reload(_ sender: Any?) {
+        self.ifEditedSave()
+        self.clearSelection()
+        self.reloadFromiCloud(nil)
     }
     
     @IBAction func newDocument(_ sender: Any?) {
