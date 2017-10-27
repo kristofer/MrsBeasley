@@ -13,11 +13,11 @@
                 <application id="hnw-xV-0zn" sceneMemberID="viewController">
                     <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
                         <items>
-                            <menuItem title="MrsBeasley-mac" id="1Xt-HY-uBw">
+                            <menuItem title="MrsBeasley" id="1Xt-HY-uBw">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="MrsBeasley-mac" systemMenu="apple" id="uQy-DD-JDr">
+                                <menu key="submenu" title="MrsBeasley" systemMenu="apple" id="uQy-DD-JDr">
                                     <items>
-                                        <menuItem title="About MrsBeasley-mac" id="5kV-Vb-QxS">
+                                        <menuItem title="About MrsBeasley" id="5kV-Vb-QxS">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
@@ -634,7 +634,7 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
                                     <items>
-                                        <menuItem title="MrsBeasley-mac Help" keyEquivalent="?" id="FKE-Sm-Kum">
+                                        <menuItem title="MrsBeasley Help" keyEquivalent="?" id="FKE-Sm-Kum">
                                             <connections>
                                                 <action selector="showHelp:" target="Ady-hI-5gd" id="y7X-2Q-9no"/>
                                             </connections>
@@ -718,15 +718,8 @@
                                                                     <rect key="frame" x="1" y="1" width="267" height="28"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
-                                                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mCa-BN-5mc">
-                                                                            <rect key="frame" x="3" y="6" width="17" height="17"/>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="width" constant="17" id="m3g-5N-cnh"/>
-                                                                            </constraints>
-                                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="SUJ-Nh-YJs"/>
-                                                                        </imageView>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xae-g4-xj9">
-                                                                            <rect key="frame" x="25" y="6" width="224" height="17"/>
+                                                                            <rect key="frame" x="1" y="6" width="248" height="17"/>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="S64-mc-W64">
                                                                                 <font key="font" metaFont="systemHeavy" size="13"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -736,14 +729,10 @@
                                                                     </subviews>
                                                                     <constraints>
                                                                         <constraint firstAttribute="trailing" secondItem="Xae-g4-xj9" secondAttribute="trailing" constant="20" id="1Ko-c4-5Bv"/>
-                                                                        <constraint firstItem="mCa-BN-5mc" firstAttribute="centerY" secondItem="lQt-2B-Hjs" secondAttribute="centerY" id="2ae-xV-dut"/>
-                                                                        <constraint firstItem="mCa-BN-5mc" firstAttribute="leading" secondItem="lQt-2B-Hjs" secondAttribute="leading" constant="3" id="H5a-si-ur9"/>
-                                                                        <constraint firstItem="mCa-BN-5mc" firstAttribute="bottom" secondItem="Xae-g4-xj9" secondAttribute="bottom" id="HnF-o9-fsf"/>
-                                                                        <constraint firstItem="mCa-BN-5mc" firstAttribute="top" secondItem="Xae-g4-xj9" secondAttribute="top" id="Mdm-bh-ZKA"/>
-                                                                        <constraint firstItem="Xae-g4-xj9" firstAttribute="leading" secondItem="mCa-BN-5mc" secondAttribute="trailing" constant="7" id="PJc-0s-97V"/>
+                                                                        <constraint firstItem="Xae-g4-xj9" firstAttribute="leading" secondItem="lQt-2B-Hjs" secondAttribute="leading" constant="3" id="tld-4b-cJc"/>
+                                                                        <constraint firstItem="Xae-g4-xj9" firstAttribute="centerY" secondItem="lQt-2B-Hjs" secondAttribute="centerY" id="wGz-sF-ICh"/>
                                                                     </constraints>
                                                                     <connections>
-                                                                        <outlet property="imageView" destination="mCa-BN-5mc" id="QFo-2P-iqR"/>
                                                                         <outlet property="textField" destination="Xae-g4-xj9" id="lz7-fW-hl1"/>
                                                                     </connections>
                                                                 </tableCellView>
@@ -839,7 +828,4 @@
             <point key="canvasLocation" x="170.5" y="655"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="NSActionTemplate" width="14" height="14"/>
-    </resources>
 </document>
