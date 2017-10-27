@@ -72,7 +72,7 @@
                                                 <action selector="saveDocument:" target="Ady-hI-5gd" id="teZ-XB-qJY"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Reload" state="on" keyEquivalent="r" id="KaW-ft-85H">
+                                        <menuItem title="Reload" keyEquivalent="r" id="KaW-ft-85H">
                                             <connections>
                                                 <action selector="reload:" target="Ady-hI-5gd" id="z9b-R6-zbe"/>
                                             </connections>
