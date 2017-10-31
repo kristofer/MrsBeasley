@@ -141,19 +141,21 @@ class MasterViewController: UITableViewController {
             return sectionSource.count
         }
         
+        self.setupNothingFound()
+        return 0
+    }
+    
+    func setupNothingFound() {
         let rect = CGRect(x: 0,
                           y: 0,
                           width: self.tableView.bounds.size.width,
                           height: self.tableView.bounds.size.height)
         let noDataLabel: UILabel = UILabel(frame: rect)
-        
         noDataLabel.text = "No items found. Are you logged into iCloud?"
         noDataLabel.textColor = UIColor.white
         noDataLabel.textAlignment = NSTextAlignment.center
         self.tableView.backgroundView = noDataLabel
         self.tableView.separatorStyle = .none
-        
-        return 0
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
