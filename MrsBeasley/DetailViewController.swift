@@ -75,6 +75,8 @@ class DetailViewController: UIViewController, UITextViewDelegate, UITextFieldDel
         //print("textViewDidChange")
         self.bodyChanged = true
         self.saveButton.isEnabled = true
+        
+        //self.perform(#selector(save(_:)), with: self, afterDelay: 120.0)
     }
     func textViewDidEndEditing(_ textView: UITextView) {
         //print("didEndEditing")

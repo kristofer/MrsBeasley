@@ -38,7 +38,6 @@ class NoteShowCell: UITableViewCell {
 
 
 class MasterViewController: UITableViewController {
-    
     var detailViewController: DetailViewController? = nil
     var objects = [CKRecord]()
     var sectionSource = [SectionOfCKRecord]()
@@ -50,7 +49,11 @@ class MasterViewController: UITableViewController {
     let sectionFormater = DateFormatter()
     let sectionHeaderFormat = "EEEE, dd MMMM yyyy"
     
+    var currentOrderby = creationOrderby
+    static let creationOrderby = "creationDate"
+    static let modificationOrderby = "modificationDate"
     
+
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     
@@ -62,6 +65,9 @@ class MasterViewController: UITableViewController {
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
         navigationItem.rightBarButtonItem = addButton
+        let menuButton = UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(popMenu(_:)))
+        navigationItem.leftBarButtonItem = menuButton
+
         if let split = splitViewController {
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
@@ -116,6 +122,36 @@ class MasterViewController: UITableViewController {
             return
         }
         self.networkOffline()
+    }
+    
+    @objc
+    func popMenu(_ sender: Any) {
+        let actionSheetController: UIAlertController = UIAlertController(title: "Organize", message: "ordering by \(self.currentOrderby)", preferredStyle: .actionSheet)
+        
+        //Create and add the Cancel action
+        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { action -> Void in
+            //Just dismiss the action sheet
+        }
+        actionSheetController.addAction(cancelAction)
+
+        let toggleOrder: UIAlertAction = UIAlertAction(title: "Toggle 'Order By'", style: UIAlertActionStyle.default) { action -> Void in
+            if self.currentOrderby == MasterViewController.creationOrderby {
+                self.currentOrderby = MasterViewController.modificationOrderby
+            } else {
+                self.currentOrderby = MasterViewController.creationOrderby
+            }
+            self.reloadFromiCloud()
+        }
+        actionSheetController.addAction(toggleOrder)
+
+        actionSheetController.popoverPresentationController?.sourceView = view
+        actionSheetController.popoverPresentationController?.sourceRect = self.view.frame
+        
+        //Present the AlertController
+        DispatchQueue.main.async{
+            self.present(actionSheetController, animated: true, completion: nil)
+        }
+
     }
     
     // MARK: - Segues
@@ -219,7 +255,7 @@ class MasterViewController: UITableViewController {
             
             let predicate = NSPredicate(value: true)
             let query = CKQuery.init(recordType: TDRecordTypeString, predicate: predicate)
-            query.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+            query.sortDescriptors = [NSSortDescriptor(key: self.currentOrderby, ascending: false)]
             let queryOperation = CKQueryOperation (query: query)
             
             queryOperation.recordFetchedBlock = doneOneRecord
