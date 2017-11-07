@@ -697,7 +697,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="270" height="268"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
-                                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" red="0.92819818369999996" green="0.96651616539999996" blue="0.99982959029999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <tableViewGridLines key="gridStyleMask" vertical="YES"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
@@ -745,7 +745,7 @@
                                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Table View Cell" id="Kdl-7H-eOf">
                                                                                 <font key="font" metaFont="systemUltraLight" size="12"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                                <color key="backgroundColor" red="0.80079685219999996" green="0.91559012620000002" blue="0.92779582739999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                <color key="backgroundColor" red="0.92819818369999996" green="0.96651616539999996" blue="0.99982959029999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             </textFieldCell>
                                                                         </textField>
                                                                     </subviews>
@@ -787,7 +787,7 @@
                                                 <textView importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="HoK-gQ-cBD">
                                                     <rect key="frame" x="0.0" y="0.0" width="387" height="268"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" red="0.98269428410000004" green="1" blue="0.68466030860000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <size key="minSize" width="387" height="268"/>
                                                     <size key="maxSize" width="656" height="10000000"/>
                                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
