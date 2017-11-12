@@ -144,6 +144,11 @@ class MasterViewController: UITableViewController {
         }
         actionSheetController.addAction(toggleOrder)
 
+        let tags: UIAlertAction = UIAlertAction(title: "Manage Tags", style: UIAlertActionStyle.default) { action -> Void in
+            self.performSegue(withIdentifier: "ShowTags", sender: self)
+        }
+        actionSheetController.addAction(tags)
+
         actionSheetController.popoverPresentationController?.sourceView = view
         actionSheetController.popoverPresentationController?.sourceRect = self.view.frame
         
@@ -166,7 +171,13 @@ class MasterViewController: UITableViewController {
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
         }
-    }
+        // "Project Tags"
+        if segue.identifier == "ShowTags" {
+            let controller = segue.destination as! ProjectTags
+            controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+            controller.navigationItem.leftItemsSupplementBackButton = true
+        }
+   }
     
     // MARK: - Table View
     

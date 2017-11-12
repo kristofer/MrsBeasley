@@ -9,7 +9,7 @@
 import UIKit
 import CloudKit
 
-class DetailViewController: UIViewController, UITextViewDelegate, UITextFieldDelegate {
+class DetailViewController: UIViewController, UITextViewDelegate, UITextFieldDelegate, UITableViewDelegate {
     
     var recordItem: CKRecord? { // active record in this detail.
         didSet {
@@ -45,6 +45,7 @@ class DetailViewController: UIViewController, UITextViewDelegate, UITextFieldDel
 
         self.titleField.delegate = self
         self.bodyField.delegate = self
+        self.bodyField.isScrollEnabled = true
         self.activityIndicator.hidesWhenStopped = true
         self.activityIndicator.center = self.view.center
         self.activityIndicator.transform = CGAffineTransform(scaleX: 3, y: 3)
@@ -54,6 +55,7 @@ class DetailViewController: UIViewController, UITextViewDelegate, UITextFieldDel
     
     override func viewWillAppear(_ animated: Bool) {
         self.configureView()
+        self.bodyField.delegate = self
         if reachability.connection != .none {
             self.bodyField.isEditable = true
             //_ = bodyField.becomeFirstResponder()
@@ -71,8 +73,15 @@ class DetailViewController: UIViewController, UITextViewDelegate, UITextFieldDel
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        print("shouldChangeTextIn \(text)")
+        return true
+    }
+    
     func textViewDidChange(_ textView: UITextView) {
-        //print("textViewDidChange")
+        print("textViewDidChange \(textView.text)")
+
         self.bodyChanged = true
         self.saveButton.isEnabled = true
         
@@ -96,10 +105,13 @@ class DetailViewController: UIViewController, UITextViewDelegate, UITextFieldDel
     
     func getFirstLine(_ text: String) -> String {
         let till: Character = "\n"
-        if let idx = text.characters.index(of: till) {
+        if let idx = text.index(of: till) {
             return String(text[text.startIndex..<idx])
         }
         return text
+    }
+    @IBAction func showTags(_ sender: Any) {
+        self.performSegue(withIdentifier: "ShowTags", sender: bodyField)
     }
     
     @IBAction func save(_ sender: Any) {
@@ -132,5 +144,14 @@ class DetailViewController: UIViewController, UITextViewDelegate, UITextFieldDel
         })
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowTags" {
+            let controller = segue.destination as! ProjectTags
+            controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+            controller.navigationItem.leftItemsSupplementBackButton = true
+            controller.textViewToInsertInto = self.bodyField
+            controller.actualRecord = recordItem!
+        }
+    }
 }
 

@@ -28,6 +28,7 @@
 		5C4940C91F9FB66000C3A007 /* TDRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4775F51F94F02E0001FB85 /* TDRecord.swift */; };
 		5C7EE2661FA1222100F02B9A /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7EE2651FA1222100F02B9A /* Reachability.swift */; };
 		5C7EE2681FA1224000F02B9A /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7EE2651FA1222100F02B9A /* Reachability.swift */; };
+		5CEC644E1FB87DD900960F5C /* ProjectTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEC644D1FB87DD900960F5C /* ProjectTags.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +97,7 @@
 		5C4940BD1F9FA88C00C3A007 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C4940C71F9FAC7B00C3A007 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		5C7EE2651FA1222100F02B9A /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		5CEC644D1FB87DD900960F5C /* ProjectTags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTags.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +182,7 @@
 			children = (
 				5C4775F11F94EF840001FB85 /* MrsBeasley.entitlements */,
 				5C4775C11F94EC6E0001FB85 /* AppDelegate.swift */,
+				5CEC644D1FB87DD900960F5C /* ProjectTags.swift */,
 				5C4775C31F94EC6E0001FB85 /* MasterViewController.swift */,
 				5C4775C51F94EC6E0001FB85 /* DetailViewController.swift */,
 				5C4775C71F94EC6E0001FB85 /* Main.storyboard */,
@@ -524,6 +527,7 @@
 				5C4775F61F94F02E0001FB85 /* TDRecord.swift in Sources */,
 				5C310D861F9509DB00DFDAA5 /* UserViewController.swift in Sources */,
 				5C7EE2661FA1222100F02B9A /* Reachability.swift in Sources */,
+				5CEC644E1FB87DD900960F5C /* ProjectTags.swift in Sources */,
 				5C4775C61F94EC6E0001FB85 /* DetailViewController.swift in Sources */,
 				5C4775C41F94EC6E0001FB85 /* MasterViewController.swift in Sources */,
 				5C4775C21F94EC6E0001FB85 /* AppDelegate.swift in Sources */,
