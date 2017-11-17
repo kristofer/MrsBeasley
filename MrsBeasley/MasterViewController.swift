@@ -49,9 +49,8 @@ class MasterViewController: UITableViewController {
     let sectionFormater = DateFormatter()
     let sectionHeaderFormat = "EEEE, dd MMMM yyyy"
     
-    var currentOrderby = creationOrderby
-    static let creationOrderby = "creationDate"
-    static let modificationOrderby = "modificationDate"
+    //var currentOrderby = creationOrderby
+
     
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -308,7 +307,7 @@ class MasterViewController: UITableViewController {
             
             self.sectionSource.removeAll()
             for element in objects {
-                let currentDate = element.creationDate!
+                let currentDate = (self.currentOrderby == MasterViewController.creationOrderby) ? element.creationDate!: element.modificationDate!
                 let unitFlags : Set<Calendar.Component> = [.era, .day, .month, .year, .hour, .minute, .timeZone]
                 let difference = calendar.dateComponents(unitFlags, from: lastDate, to: currentDate)
                 // still don't have this quite precisely right.

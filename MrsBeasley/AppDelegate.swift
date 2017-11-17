@@ -10,13 +10,32 @@ import UIKit
 import CloudKit
 
 let MrsBeasleyContainer = "iCloud.com.tiogadigital.MrsBeasley"
+let appSharedGroup = "group.com.tiogadigital.MrsBeasley" // place where userdefaults and realm file is kept on user devices
 
 extension UIViewController {
     
     var container: CKContainer {
         return CKContainer(identifier: MrsBeasleyContainer)
     }
-    
+    static let currentOrderbyKey = "currentOrderby"
+    static let creationOrderby = "creationDate"
+    static let modificationOrderby = "modificationDate"
+    var currentOrderby: String {
+        get {
+            let defaultsStorage = UserDefaults(suiteName: appSharedGroup)
+            if defaultsStorage?.string(forKey: UIViewController.currentOrderbyKey) == nil {
+                defaultsStorage?.set(UIViewController.creationOrderby, forKey: UIViewController.currentOrderbyKey)
+                defaultsStorage?.synchronize()
+            }
+            return (defaultsStorage?.string(forKey: UIViewController.currentOrderbyKey)!)!
+        }
+        set {
+            let defaultsStorage = UserDefaults(suiteName: appSharedGroup)
+            defaultsStorage?.set(newValue, forKey: UIViewController.currentOrderbyKey)
+            defaultsStorage?.synchronize()
+        }
+    }
+
 }
 
 let reachability = Reachability()!

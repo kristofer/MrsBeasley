@@ -53,6 +53,10 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTextViewDelegate,
     let sectionHeaderFormat = "EEEE, dd MMMM yyyy"
     var tableViewCellForSizing: NSTableCellView?
     
+//    var currentOrderby = creationOrderby
+//    static let creationOrderby = "creationDate"
+//    static let modificationOrderby = "modificationDate"
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -359,7 +363,8 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTextViewDelegate,
             
             self.sectionSource.removeAll()
             for element in objects {
-                let currentDate = element.creationDate!
+                let currentDate = (self.currentOrderby == ViewController.creationOrderby) ? element.creationDate!: element.modificationDate!
+                //element.creationDate!
                 let unitFlags : Set<Calendar.Component> = [.era, .day, .month, .year, .hour, .minute, .timeZone]
                 let difference = calendar.dateComponents(unitFlags, from: lastDate, to: currentDate)
                 //                let pdiff = calendar.dateComponents(unitFlags, from: currentDate, to: lastDate)

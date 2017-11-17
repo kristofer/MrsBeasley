@@ -10,6 +10,7 @@ import Cocoa
 import CloudKit
 
 let MrsBeasleyContainer = "iCloud.com.tiogadigital.MrsBeasley"
+let appSharedGroup = "group.com.tiogadigital.MrsBeasley" // place where userdefaults and realm file is kept on user devices
 
 extension ViewController {
     
@@ -17,6 +18,26 @@ extension ViewController {
         return CKContainer(identifier: MrsBeasleyContainer)
     }
     
+    static let currentOrderbyKey = "currentOrderby"
+    static let creationOrderby = "creationDate"
+    static let modificationOrderby = "modificationDate"
+    var currentOrderby: String {
+        get {
+            let defaultsStorage = UserDefaults(suiteName: appSharedGroup)
+            if defaultsStorage?.string(forKey: ViewController.currentOrderbyKey) == nil {
+                defaultsStorage?.set(ViewController.creationOrderby, forKey: ViewController.currentOrderbyKey)
+                defaultsStorage?.synchronize()
+            }
+            return (defaultsStorage?.string(forKey: ViewController.currentOrderbyKey)!)!
+        }
+        set {
+            let defaultsStorage = UserDefaults(suiteName: appSharedGroup)
+            defaultsStorage?.set(newValue, forKey: ViewController.currentOrderbyKey)
+            defaultsStorage?.synchronize()
+        }
+    }
+    
+
 }
 
 @NSApplicationMain
