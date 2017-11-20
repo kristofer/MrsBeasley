@@ -300,7 +300,8 @@ class MasterViewController: UITableViewController {
     func performDateGrouping() {
         sectionFormater.dateFormat = self.sectionHeaderFormat
         if objects.count > 0 {
-            var lastDate = (objects[0].creationDate)! as Date
+            var lastDate = (self.currentOrderby == MasterViewController.creationOrderby) ? (objects[0].creationDate)!: (objects[0].modificationDate)!
+                //(objects[0].creationDate)! as Date
             var lastGroup = SectionOfCKRecord(header: sectionFormater.string(from: lastDate as Date), items: [])
             var dateGroups = [SectionOfCKRecord]()
             let calendar = NSCalendar.current
