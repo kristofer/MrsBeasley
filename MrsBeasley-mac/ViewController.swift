@@ -138,7 +138,7 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTextViewDelegate,
         self.textView.isEditable = false
     }
     @IBAction func saveDocument(_ sender: Any?) {
-        //print("saveDocument \(String(describing: self.selectedRow))")
+        print("saveDocument \(String(describing: self.selectedRow))")
         //self.textView.textStorage?.endEditing()
         self.ifEditedSave()
     }
