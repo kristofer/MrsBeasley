@@ -106,7 +106,7 @@ class ProjectTags: UITableViewController {
         return false
     }
     
-    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         if(indexPath.row >= self.tagsArray.count){
             return .insert
         } else {
@@ -115,7 +115,7 @@ class ProjectTags: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let objDelete = self.tagsArray[indexPath.row]
             let didx = self.tagsArray.index(of: objDelete)
@@ -156,7 +156,7 @@ class ProjectTags: UITableViewController {
         
         let alertWindow = UIWindow(frame: UIScreen.main.bounds)
         alertWindow.rootViewController = UIViewController()
-        alertWindow.windowLevel = UIWindowLevelAlert + 1;
+        alertWindow.windowLevel = UIWindow.Level.alert + 1;
         alertWindow.makeKeyAndVisible()
         alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
         

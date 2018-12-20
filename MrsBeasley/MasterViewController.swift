@@ -82,7 +82,7 @@ class MasterViewController: UITableViewController {
             self.refreshControl = refreshControl
         }
         tableView.estimatedRowHeight = 70
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
 
     }
     
@@ -128,12 +128,12 @@ class MasterViewController: UITableViewController {
         let actionSheetController: UIAlertController = UIAlertController(title: "Organize", message: "ordering by \(self.currentOrderby)", preferredStyle: .actionSheet)
         
         //Create and add the Cancel action
-        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { action -> Void in
+        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel) { action -> Void in
             //Just dismiss the action sheet
         }
         actionSheetController.addAction(cancelAction)
 
-        let toggleOrder: UIAlertAction = UIAlertAction(title: "Toggle 'Order By'", style: UIAlertActionStyle.default) { action -> Void in
+        let toggleOrder: UIAlertAction = UIAlertAction(title: "Toggle 'Order By'", style: UIAlertAction.Style.default) { action -> Void in
             if self.currentOrderby == MasterViewController.creationOrderby {
                 self.currentOrderby = MasterViewController.modificationOrderby
             } else {
@@ -143,7 +143,7 @@ class MasterViewController: UITableViewController {
         }
         actionSheetController.addAction(toggleOrder)
 
-        let tags: UIAlertAction = UIAlertAction(title: "Manage Tags", style: UIAlertActionStyle.default) { action -> Void in
+        let tags: UIAlertAction = UIAlertAction(title: "Manage Tags", style: UIAlertAction.Style.default) { action -> Void in
             self.performSegue(withIdentifier: "ShowTags", sender: self)
         }
         actionSheetController.addAction(tags)
@@ -227,7 +227,7 @@ class MasterViewController: UITableViewController {
         return false
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let objDelete = sectionSource[indexPath.section].items[indexPath.row]
             container.privateCloudDatabase.delete(withRecordID: objDelete.recordID, completionHandler: { (recordID, error) in

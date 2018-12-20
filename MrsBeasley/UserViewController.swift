@@ -85,7 +85,7 @@ class UserViewController: UIViewController {
     }
     
     @IBAction func logIn(_ sender: Any) {
-        UIApplication.shared.open(URL(string: "App-Prefs:root=Settings")!, options: [:], completionHandler: nil)
+        UIApplication.shared.open(URL(string: "App-Prefs:root=Settings")!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
     }
     
     private func fetchUserRecordIdentifier() {
@@ -107,7 +107,7 @@ class UserViewController: UIViewController {
         }
     }
     
-    private func fetchUserRecord(with recordID: CKRecordID) {
+    private func fetchUserRecord(with recordID: CKRecord.ID) {
         container.publicCloudDatabase.fetch(withRecordID: recordID) { record, error in
             guard let record = record, error == nil else {
                 // show off your error handling skills
@@ -122,7 +122,7 @@ class UserViewController: UIViewController {
         }
     }
     
-    private func discoverIdentity(for recordID: CKRecordID) {
+    private func discoverIdentity(for recordID: CKRecord.ID) {
         container.requestApplicationPermission(.userDiscoverability) { status, error in
             guard status == .granted, error == nil else {
                 // error handling voodoo
@@ -176,14 +176,17 @@ class UserViewController: UIViewController {
 
 extension UserViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
         defer {
             picker.dismiss(animated: true, completion: nil)
         }
         
         guard let userRecord = userRecord,
-            let image = info[UIImagePickerControllerOriginalImage] as? UIImage,
-            let imageData = UIImagePNGRepresentation(image)
+            let image = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage,
+            let imageData = image.pngData()
             else {
                 print("Missing some data, unable to set the avatar now")
                 return
@@ -236,4 +239,19 @@ extension UserViewController: UIImagePickerControllerDelegate, UINavigationContr
         }
     }
     
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
+	return input.rawValue
 }
