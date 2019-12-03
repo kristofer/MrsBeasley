@@ -56,7 +56,7 @@ class DetailViewController: UIViewController, UITextViewDelegate, UITextFieldDel
     override func viewWillAppear(_ animated: Bool) {
         self.configureView()
         self.bodyField.delegate = self
-        if reachability.connection != .none {
+        if reachability.connection != .unavailable {
             self.bodyField.isEditable = true
             //_ = bodyField.becomeFirstResponder()
         } else {
@@ -75,12 +75,12 @@ class DetailViewController: UIViewController, UITextViewDelegate, UITextFieldDel
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        print("shouldChangeTextIn \(text)")
+        //print("shouldChangeTextIn \(text)")
         return true
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        print("textViewDidChange \(textView.text)")
+        //print("textViewDidChange \(String(describing: textView.text))")
 
         self.bodyChanged = true
         self.saveButton.isEnabled = true
@@ -105,7 +105,7 @@ class DetailViewController: UIViewController, UITextViewDelegate, UITextFieldDel
     
     func getFirstLine(_ text: String) -> String {
         let till: Character = "\n"
-        if let idx = text.index(of: till) {
+        if let idx = text.firstIndex(of: till) {
             return String(text[text.startIndex..<idx])
         }
         return text

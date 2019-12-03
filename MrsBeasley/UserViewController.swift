@@ -37,7 +37,7 @@ class UserViewController: UIViewController {
         didSet {
             if let userRecord = userRecord {
                 if let avatar = userRecord["avatar"] as? CKAsset {
-                    avatarImageView.image = UIImage(contentsOfFile: avatar.fileURL.path)
+                    avatarImageView.image = UIImage(contentsOfFile: avatar.fileURL!.path)
                 }
                 
                 avatarContainerView.isHidden = false
@@ -74,6 +74,8 @@ class UserViewController: UIViewController {
                     case .couldNotDetermine, .noAccount, .restricted:
                         UIApplication.shared.isNetworkActivityIndicatorVisible = false
                         self.showNoAccountInfo()
+                    @unknown default:
+                        print("bad default")
                     }
                 }
             }

@@ -100,7 +100,7 @@ class ProjectTags: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if reachability.connection != .none {
+        if reachability.connection != .unavailable {
             return true
         }
         return false
@@ -118,7 +118,7 @@ class ProjectTags: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let objDelete = self.tagsArray[indexPath.row]
-            let didx = self.tagsArray.index(of: objDelete)
+            let didx = self.tagsArray.firstIndex(of: objDelete)
             self.tagsArray.remove(at: didx!)
             self.saveToiCloud()
             tableView.deleteRows(at: [indexPath], with: .fade)

@@ -38,7 +38,7 @@ extension UIViewController {
 
 }
 
-let reachability = Reachability()!
+let reachability = try! Reachability()
 
 
 @UIApplicationMain
@@ -74,7 +74,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                     print("couldNotDetermine need iCloud...")
                 case .restricted:
                     // iCloud settings are restricted by parental controls or a configuration profile
-                    print("restrictedneed iCloud...")
+                    print("restricted need iCloud...")
+                @unknown default:
+                    print("bad default")
                 }
             }
         }
@@ -120,7 +122,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         let container = CKContainer(identifier: MrsBeasleyContainer)
         
         container.privateCloudDatabase.fetchAllRecordZones { zones, error in
-            guard let zones = zones, error == nil else {
+            guard let _ = zones, error == nil else {
                 // error handling magic
                 return
             }

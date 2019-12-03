@@ -104,7 +104,7 @@ class MasterViewController: UITableViewController {
     
     @objc
     func insertNewObject(_ sender: Any) {
-        if reachability.connection != .none {
+        if reachability.connection != .unavailable {
             let newOne = CKRecord(recordType: TDRecordTypeString)
             newOne[TDRecordKey.title] = ""
             
@@ -221,7 +221,7 @@ class MasterViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if reachability.connection != .none {
+        if reachability.connection != .unavailable {
             return true
         }
         return false
@@ -232,7 +232,7 @@ class MasterViewController: UITableViewController {
             let objDelete = sectionSource[indexPath.section].items[indexPath.row]
             container.privateCloudDatabase.delete(withRecordID: objDelete.recordID, completionHandler: { (recordID, error) in
                 print("deleted: \(String(describing: recordID?.recordName))")            })
-            let didx = objects.index(of: objDelete)
+            let didx = objects.firstIndex(of: objDelete)
             objects.remove(at: didx!)
             self.performDateGrouping()
             tableView.deleteRows(at: [indexPath], with: .fade)
@@ -243,7 +243,7 @@ class MasterViewController: UITableViewController {
     
     func reloadFromiCloud() {
         
-        if reachability.connection != .none {
+        if reachability.connection != .unavailable {
             self.objects.removeAll()
             activityIndicator.hidesWhenStopped = true
             activityIndicator.center = self.view.center
@@ -334,7 +334,7 @@ class MasterViewController: UITableViewController {
     }
     
     func networkOffline() {
-        if reachability.connection == .none {
+        if reachability.connection == .unavailable {
             let alert = UIAlertController(title: "iCloud Needed.", message: "network is offline. unable to perform this operation.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
