@@ -112,7 +112,7 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTextViewDelegate,
     }
     func getFirstLine(_ text: String) -> String {
         let till: Character = "\n"
-        if let idx = text.characters.index(of: till) {
+        if let idx = text.index(of: till) {
             return String(text[text.startIndex..<idx])
         }
         return text
