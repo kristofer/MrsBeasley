@@ -75,7 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                 case .restricted:
                     // iCloud settings are restricted by parental controls or a configuration profile
                     print("restricted need iCloud...")
-                @unknown default:
+                default:
                     print("bad default")
                 }
             }

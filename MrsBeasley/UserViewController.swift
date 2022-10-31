@@ -58,7 +58,7 @@ class UserViewController: UIViewController {
     @objc private func startDiscoveryProcess() {
         self.noAccountView.isHidden = true
         
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        //UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
         container.accountStatus { status, error in
             DispatchQueue.main.async {
@@ -66,15 +66,15 @@ class UserViewController: UIViewController {
                     let alert = UIAlertController(title: "Account Error", message: "Unable to determine iCloud account status.\n\(error.localizedDescription)", preferredStyle: .alert)
                     self.present(alert, animated: true, completion: nil)
                     
-                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    //UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 } else {
                     switch status {
                     case .available:
                         self.fetchUserRecordIdentifier()
                     case .couldNotDetermine, .noAccount, .restricted:
-                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                        //UIApplication.shared.isNetworkActivityIndicatorVisible = false
                         self.showNoAccountInfo()
-                    @unknown default:
+                    default:
                         print("bad default")
                     }
                 }
@@ -135,11 +135,11 @@ class UserViewController: UIViewController {
             }
             
             self.container.discoverUserIdentity(withUserRecordID: recordID) { identity, error in
-                defer {
-                    DispatchQueue.main.async {
-                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                    }
-                }
+//                defer {
+//                    DispatchQueue.main.async {
+//                        //UIApplication.shared.isNetworkActivityIndicatorVisible = false
+//                    }
+//                }
                 
                 guard let components = identity?.nameComponents, error == nil else {
                     // more error handling magic
