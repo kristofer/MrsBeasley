@@ -68,6 +68,7 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTextViewDelegate,
         self.textView.textContainerInset = NSMakeSize(20, 20)
         self.textView.typingAttributes = attributes as! [NSAttributedStringKey : Any]
         self.textView.delegate = self
+        self.textView.string = ""
         //self.textView.resignFirstResponder()
         //self.textView.textStorage?.delegate = self
         //self.textView.
@@ -125,6 +126,8 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTextViewDelegate,
                 self.selectedRecord![.title] = getFirstLine(body)
                 self.selectedRecord![.body] = body
                 self.saveSelectedRecord()
+//                self.doReload(self.selectedRecord)
+//                self.tableView.reloadData()
                 return
             }
         }
@@ -141,6 +144,10 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTextViewDelegate,
         print("saveDocument \(String(describing: self.selectedRow))")
         //self.textView.textStorage?.endEditing()
         self.ifEditedSave()
+        DispatchQueue.main.async {
+            self.doReload(self.selectedRecord)
+            self.tableView.reloadData()
+        }
     }
     
     func saveSelectedRecord() {
