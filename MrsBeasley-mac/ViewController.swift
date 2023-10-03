@@ -62,10 +62,10 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTextViewDelegate,
 
         self.tableViewCellForSizing = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "CellView"), owner: self) as? NSTableCellView
         self.dateFormater.dateFormat = backupCreationFormat
-        let font = NSFont(name: "Optima-Regular", size: 16)
-        let attributes = NSDictionary(object: font!, forKey: NSAttributedStringKey.font as NSCopying)
+        let font = NSFont.systemFont(ofSize: 16.0)//(name: "SFPro", size: 16)
+        let attributes = NSDictionary(object: font, forKey: NSAttributedStringKey.font as NSCopying)
         
-        self.textView.textContainerInset = NSMakeSize(20, 20)
+        self.textView.textContainerInset = NSMakeSize(15, 15)
         self.textView.typingAttributes = attributes as! [NSAttributedStringKey : Any]
         self.textView.delegate = self
         //self.textView.resignFirstResponder()

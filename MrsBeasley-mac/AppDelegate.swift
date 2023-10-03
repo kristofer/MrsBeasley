@@ -67,6 +67,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 case .restricted:
                     // iCloud settings are restricted by parental controls or a configuration profile
                     print("restrictedneed iCloud...")
+                default:
+                    print("")
                 }
             }
         }
